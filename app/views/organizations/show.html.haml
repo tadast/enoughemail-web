@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Domain:
+  = @organization.domain
+%p
+  %b Billing email:
+  = @organization.billing_email
+
+= link_to 'Edit', edit_organization_path(@organization)
+\|
+= link_to 'Back', organizations_path
