@@ -51,6 +51,7 @@ gem "bootsnap", require: false
 gem "haml-rails"
 gem "google-apis-gmail_v1"
 gem "google-apis-admin_directory_v1"
+gem "delayed_job_active_record"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -66,6 +67,7 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+  gem "standardrb"
 end
 
 group :test do
