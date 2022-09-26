@@ -22,8 +22,8 @@ class Google::Service
 
     # return super administrators: query: "isAdmin=true" / delegated admins query: "isDelegatedAdmin=true"
     response = service.list_users(customer: "my_customer",
-                                  max_results: 10,
-                                  order_by:    "email")
+      max_results: 10,
+      order_by:    "email")
     # puts "Users:"
     # puts "No users found" if response.users.empty?
     # response.users.each { |user| puts "- #{user.primary_email} (#{user.name.full_name})" }
@@ -34,7 +34,7 @@ class Google::Service
   def list_filters(user_email:)
     gmail = Google::Apis::GmailV1::GmailService.new
     gmail.authorization = service_authorization(as: user_email)
-    gmail.list_user_setting_filters('me')
+    gmail.list_user_setting_filters("me")
   end
 
   def everyones_filters
@@ -45,17 +45,16 @@ class Google::Service
     end
   end
 
-  def filter_domain_for_everyone(domain: )
-
+  def filter_domain_for_everyone(domain:)
   end
 
-  def create_domain_filter_for(user_email: , domain: )
+  def create_domain_filter_for(user_email:, domain:)
     gmail = Google::Apis::GmailV1::GmailService.new
     gmail.authorization = service_authorization(as: user_email)
 
-    safe_domain = domain.split('@').last.to_s
+    safe_domain = domain.split("@").last.to_s
 
-    raise "invalid domain: #{domain}" unless safe_domain.to_s.size > 4 && safe_domain.include?('.')
+    raise "invalid domain: #{domain}" unless safe_domain.to_s.size > 4 && safe_domain.include?(".")
     # create_user_setting_filter(user_id, filter_object = nil, fields: nil, quota_user: nil, options: nil) {|result, err| ... } ⇒ Google::Apis::GmailV1::Filter
     gmail.create_user_setting_filter(
       "me",
