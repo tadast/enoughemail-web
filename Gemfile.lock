@@ -98,6 +98,7 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.0)
+    foreman (0.87.2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     google-apis-admin_directory_v1 (0.32.0)
@@ -305,6 +306,7 @@ DEPENDENCIES
   bootsnap
   capybara
   delayed_job_active_record
+  foreman
   google-apis-admin_directory_v1
   google-apis-gmail_v1
   haml-rails
