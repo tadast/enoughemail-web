@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.7.5"
+ruby "3.0.3"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
@@ -52,6 +52,9 @@ gem "haml-rails"
 gem "google-apis-gmail_v1"
 gem "google-apis-admin_directory_v1"
 gem "delayed_job_active_record"
+gem "devise"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
