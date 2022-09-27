@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :organizations
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root "organizations#index"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :organizations
+
+  devise_for :user,
+    controllers: {
+      omniauth_callbacks: "users/omniauth_callbacks"
+    }
 end
