@@ -1,24 +1,21 @@
-# README
+# Rought plan
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## MVP (usable for Chattermill)
+- [ ] Encrypt the google credentials
+- [ ] Page/video for Google setup instructions
+- [ ] Landing site with value proposition
+- [ ] Add labels to filtered emails?
+- [ ] Add block rules to our database so that filters can be recreated
+- [ ] Deploy
+- [ ] Set up inbound email
+- [ ] Decide and buy a domain
 
-Things you may want to cover:
+## 2nd client
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- [ ] Onboarding email/video
+- [ ] Allow org admin to add more moderators
+- [ ] Add forwarding emails to gmail user address book
+- [ ] Privacy policy and T&Cs
+- [ ] Pricing numbers and page
+- [ ] How to charge (invoice?, later stripe)
+- [ ] Add custom labels to filtered emails i.e. block-domain-for-everyone+recruiters@.. would add a 'recruiters' label

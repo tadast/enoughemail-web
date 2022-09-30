@@ -1,5 +1,5 @@
 .flex
-  = form_for @organization do |f|
+  = form_for @organization, html: { class: "w-full" } do |f|
     - if @organization.errors.any?
       #error_explanation
         %h2= "#{pluralize(@organization.errors.count, "error")} prohibited this organization from being saved:"
@@ -13,5 +13,12 @@
     .my-6.flex
       = f.label :billing_email
       = f.text_field :billing_email
+    .my-6.flex
+      %small An email of the user that has access to seeing all users set up for the organization so that block filters can be applied to them
+      = f.label :admin_email
+      = f.text_field :admin_email
+    .my-6
+      = f.label :google_domain_wide_delegation_credentials, class: "w-full"
+      = f.text_area :google_domain_wide_delegation_credentials, class: "w-full"
     .my-6.flex
       = f.submit 'Save'

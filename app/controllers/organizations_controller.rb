@@ -54,6 +54,6 @@ class OrganizationsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def organization_params
-    params.require(:organization).permit(:domain, :billing_email)
+    params.require(:organization).permit(:domain, :billing_email, :google_domain_wide_delegation_credentials, :admin_email)
   end
 end
