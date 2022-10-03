@@ -46,17 +46,14 @@ class Google::Service
     end
   end
 
-  def create_domain_filters_for_everyone(domain:)
+  def create_filters_for_everyone(email_pattern:)
     users.map do |user|
       email = user.emails.first { |h| h["primary"] }["address"]
-      create_domain_filter_for(user_email: email, domain: domain)
-    end
-  end
-
-  def create_specific_email_filters_for_everyone(email:)
-    users.map do |user|
-      email = user.emails.first { |h| h["primary"] }["address"]
-      create_domain_filter_for(user_email: email, domain: domain)
+      begin
+        create_filter_for(user_email: email, email_pattern: email_pattern)
+      rescue Google::Apis::ClientError => e
+        Rails.logger.error(e.message)
+      end
     end
   end
 
@@ -74,11 +71,5 @@ class Google::Service
       quota_user: nil,
       options: nil
     )
-  end
-
-  def create_domain_filter_for(user_email:, domain:)
-    safe_domain = domain.split("@").last.to_s
-    raise "invalid domain: #{domain}" unless safe_domain.to_s.size > 4 && safe_domain.include?(".")
-    create_filter_for(user_email: user_email, email_pattern: "*@#{safe_domain}")
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_30_100505) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_03_155211) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -66,6 +66,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_30_100505) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+  create_table "filter_rules", force: :cascade do |t|
+    t.string "email_pattern", null: false
+    t.bigint "user_id", null: false
+    t.bigint "organization_id", null: false
+    t.string "source"
+    t.string "scope"
+    t.boolean "applied", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_filter_rules_on_organization_id"
+    t.index ["user_id"], name: "index_filter_rules_on_user_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.text "domain"
     t.string "billing_email"
@@ -89,5 +102,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_30_100505) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "filter_rules", "organizations"
+  add_foreign_key "filter_rules", "users"
   add_foreign_key "users", "organizations"
 end

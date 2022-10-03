@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email_pattern: MyString
+  user: one
+  organization: one
+  source: MyString
+  scope: MyString
+  google_filter_id: MyString
+
+two:
+  email_pattern: MyString
+  user: two
+  organization: two
+  source: MyString
+  scope: MyString
+  google_filter_id: MyString

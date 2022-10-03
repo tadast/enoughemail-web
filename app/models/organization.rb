@@ -1,5 +1,6 @@
 class Organization < ApplicationRecord
   has_many :users
+  has_many :filter_rules
 
   def self.for_user_email(email_address)
     domain = email_address.split("@").last.downcase

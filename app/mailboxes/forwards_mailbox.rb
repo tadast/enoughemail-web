@@ -6,15 +6,23 @@ class ForwardsMailbox < ApplicationMailbox
     # Record the forward on the one project, or…
     target_email = email_address_to_block
 
-    service = forwarder.google_service
-
     mail_to = mail.to.first
-    if mail_to.match?(/block/) && mail_to.match?(/domain/)
-      service.create_domain_filters_for_everyone(target_email.split("@").last.to_s)
+    email_pattern = if mail_to.match?(/block/) && mail_to.match?(/domain/)
+      domain = target_email.split("@").last.to_s
+      raise "invalid domain: #{domain}" unless domain.to_s.size > 4 && domain.include?(".")
+
+      "*@#{domain}"
     elsif mail_to.match?(/block/)
-      service.create_filter_for(user_email: forwarder.email, email_pattern: target_email)
+      target_email
     end
-    # TODO: add the block rule to our database so that filters can be recreated
+
+    filter_rule = forwarder.filter_rules.create!(
+      organization: forwarder.organization,
+      email_pattern: email_pattern,
+      scope: :for_everyone, # TODO: add ability to block for self only v.s. the whole org
+      source: :email
+    )
+    filter_rule.apply_to_google!
   end
 
   private
