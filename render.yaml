@@ -1,0 +1,21 @@
+
+databases:
+  - name: enoughemail-web
+    databaseName: enoughemail_web_prod
+    user: enoughemail_web_prod_user
+
+services:
+  - type: web
+    region: frankfurt
+    plan: free
+    name: enoughemail-web
+    env: ruby
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec puma -C config/puma.rb"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: enoughemail-web
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false

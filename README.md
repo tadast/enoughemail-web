@@ -5,7 +5,7 @@
 - [ ] Page/video for Google setup instructions
 - [ ] Landing site with value proposition
 - [ ] Add labels to filtered emails?
-- [ ] Add block rules to our database so that filters can be recreated
+- [x] Add block rules to our database so that filters can be recreated
 - [ ] Deploy
 - [ ] Set up inbound email
 - [ ] Decide and buy a domain

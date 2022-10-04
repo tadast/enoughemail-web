@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: thepong_production
-  username: thepong
-  password: <%= ENV["THEPONG_DATABASE_PASSWORD"] %>
+  url: <%= ENV.fetch('DATABASE_URL') %>
