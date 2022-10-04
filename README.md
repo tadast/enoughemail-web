@@ -1,14 +1,18 @@
 # Rought plan
 
 ## MVP (usable for Chattermill)
+- [x] Set up domain
 - [ ] Encrypt the google credentials
+- [ ] Set up inbound email in prod
+- [ ] Access control
+- [ ] Flow from new user to org
+- [ ] Roles, adding others to the org
 - [ ] Page/video for Google setup instructions
 - [ ] Landing site with value proposition
 - [ ] Add labels to filtered emails?
 - [x] Add block rules to our database so that filters can be recreated
-- [ ] Deploy
-- [ ] Set up inbound email
-- [ ] Decide and buy a domain
+- [x] Deploy
+- [x] Decide and buy a domain
 
 ## 2nd client
 
