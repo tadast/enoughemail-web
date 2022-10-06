@@ -16,6 +16,8 @@
 
 ## 2nd client
 
+- [ ] Basic branding
+- [ ] Logo
 - [ ] Onboarding email/video
 - [ ] Allow org admin to add more moderators
 - [ ] Add forwarding emails to gmail user address book
