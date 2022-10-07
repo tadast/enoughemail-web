@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title= "[E E]"
+    %title= "#{'{DEV}' if Rails.env.development?} [E E]"
     %meta{:content => "width=device-width,initial-scale=1", :name => "viewport"}/
     = csrf_meta_tags
     = csp_meta_tag
