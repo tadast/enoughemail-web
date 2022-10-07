@@ -11,7 +11,9 @@ class Users::SessionsController < ApplicationController
 
   def redirect_authenticated_to_root
     return unless user_signed_in?
-    redirect_to new_organization_path unless current_user.organization
+    if current_user.organization.nil?
+      redirect_to new_organization_path and return
+    end
     redirect_to current_user.organization
   end
 end

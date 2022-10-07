@@ -8,9 +8,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect user, event: :authentication
     else
       flash[:alert] = t "devise.omniauth_callbacks.failure", kind: "Google", reason: "#{auth.info.email} is not authorized."
-      redirect_to new_user_session_path
+      redirect_to new_users_session_path
     end
   end
+
+  private
 
   def from_google_params
     @from_google_params ||= {
@@ -21,5 +23,9 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def auth
     @auth ||= request.env["omniauth.auth"]
+  end
+
+  def after_omniauth_failure_path_for(_scope)
+    new_users_session_path
   end
 end

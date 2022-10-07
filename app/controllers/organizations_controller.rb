@@ -11,7 +11,7 @@ class OrganizationsController < AuthenticatedController
       redirect_to current_user.organization and return
     end
 
-    @organization = Organization.new
+    @organization = Organization.new(domain: current_user.email.split("@").last)
   end
 
   # GET /organizations/1/edit
@@ -27,6 +27,7 @@ class OrganizationsController < AuthenticatedController
     @organization = Organization.new(organization_params)
 
     if @organization.save
+      current_user.update!(organization: @organization)
       redirect_to @organization, notice: "Organization was successfully created."
     else
       render :new, status: :unprocessable_entity
