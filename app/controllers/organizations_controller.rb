@@ -1,17 +1,16 @@
 class OrganizationsController < AuthenticatedController
   before_action :set_organization, only: %i[show edit update destroy]
 
-  # GET /organizations
-  def index
-    @organizations = Organization.all
-  end
-
   # GET /organizations/1
   def show
   end
 
   # GET /organizations/new
   def new
+    if current_user.organization
+      redirect_to current_user.organization and return
+    end
+
     @organization = Organization.new
   end
 
@@ -21,6 +20,10 @@ class OrganizationsController < AuthenticatedController
 
   # POST /organizations
   def create
+    if current_user.organization
+      redirect_to current_user.organization and return
+    end
+
     @organization = Organization.new(organization_params)
 
     if @organization.save
@@ -41,15 +44,15 @@ class OrganizationsController < AuthenticatedController
 
   # DELETE /organizations/1
   def destroy
-    @organization.destroy
-    redirect_to organizations_url, notice: "Organization was successfully destroyed."
+    # @organization.destroy
+    # redirect_to organizations_url, notice: "Organization was successfully destroyed."
   end
 
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_organization
-    @organization = Organization.find(params[:id])
+    @organization = current_user.organization
   end
 
   # Only allow a list of trusted parameters through.
