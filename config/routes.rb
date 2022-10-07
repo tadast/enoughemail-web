@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   root "users/sessions#new"
 
   resources :organizations, except: [:index, :destroy]
-  resources :filter_rules
+  resources :filter_rules, only: [:index, :destroy]
   namespace :users do
     resources :sessions, only: [:new, :destroy]
   end

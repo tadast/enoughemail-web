@@ -6,51 +6,44 @@ class FilterRulesController < AuthenticatedController
     @filter_rules = current_organization.filter_rules
   end
 
-  # GET /filter_rules/1
-  def show
-  end
-
   # GET /filter_rules/new
-  def new
-    @filter_rule = Organization.new
-  end
-
-  # GET /filter_rules/1/edit
-  def edit
-  end
+  # def new
+  #   @filter_rule = FilterRule.new
+  # end
 
   # POST /filter_rules
-  def create
-    @filter_rule = current_user.filter_rules.new(
-      filter_rule_params.merge(organization_id: current_organization.id)
-    )
+  # def create
+  #   @filter_rule = current_user.filter_rules.new(
+  #     filter_rule_params.merge(organization_id: current_organization.id)
+  #   )
 
-    if @filter_rule.save
-      redirect_to @filter_rule, notice: "Filter rule was successfully added."
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
+  #   if @filter_rule.save
+  #     redirect_to @filter_rule, notice: "Filter rule was successfully added."
+  #   else
+  #     render :new, status: :unprocessable_entity
+  #   end
+  # end
 
-  # PATCH/PUT /filter_rules/1
-  def update
-    if @filter_rule.update(filter_rule_params)
-      redirect_to @filter_rule, notice: "Filter rule was successfully changed."
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
+  # # PATCH/PUT /filter_rules/1
+  # def update
+  #   if @filter_rule.update(filter_rule_params)
+  #     redirect_to @filter_rule, notice: "Filter rule was successfully changed."
+  #   else
+  #     render :edit, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE /filter_rules/1
   def destroy
     @filter_rule.destroy
+    # TODO queue a job to destroy the rules for everyone
     redirect_to filter_rules_url, notice: "Filter rule was successfully removed."
   end
 
   private
 
   def set_filter_rule
-    current_organization.filter_rules.find(params[:id])
+    @filter_rule = current_organization.filter_rules.find(params[:id])
   end
 
   def current_organization

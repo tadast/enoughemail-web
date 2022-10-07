@@ -1,0 +1,24 @@
+%h1 Your organization's Filter Rules
+
+%table
+  %thead
+    %tr
+      %th Email pattern
+      %th Scope
+      %th Created By
+      %th Created At
+      %th
+      %th
+
+  %tbody
+    - @filter_rules.each do |filter_rule|
+      %tr
+        %td= filter_rule.email_pattern
+        %td= filter_rule.scope
+        %td= filter_rule.user.email
+        %td= filter_rule.created_at.to_s(:short)
+        %td= link_to 'Destroy', filter_rule, method: :delete, data: { confirm: 'Are you sure?' }
+
+%br
+
+= link_to 'New Filter rule', new_filter_rule_path

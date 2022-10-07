@@ -11,6 +11,7 @@
 - [ ] Landing site with value proposition
 - [ ] Add labels to filtered emails?
 - [ ] Prevent blocking common domains like gmail.com
+- [ ] FilterRule destruction logic
 - [x] Add block rules to our database so that filters can be recreated
 - [x] Deploy
 - [x] Decide and buy a domain

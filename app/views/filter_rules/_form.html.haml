@@ -1,0 +1,13 @@
+= form_for @filter_rule do |f|
+  - if @filter_rule.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@filter_rule.errors.count, "error")} prohibited this filter_rule from being saved:"
+      %ul
+        - @filter_rule.errors.full_messages.each do |message|
+          %li= message
+
+  .field
+    = f.label :email_pattern
+    = f.text_field :email_pattern
+  .actions
+    = f.submit 'Save'
