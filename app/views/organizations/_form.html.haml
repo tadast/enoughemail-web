@@ -1,5 +1,5 @@
-.flex
-  = form_for @organization, html: { class: "w-full" } do |f|
+.flex.mx-8
+  = form_for @organization, html: { class: "w-96" } do |f|
     - if @organization.errors.any?
       #error_explanation
         %h2= "#{pluralize(@organization.errors.count, "error")} prohibited this organization from being saved:"
@@ -7,18 +7,22 @@
           - @organization.errors.full_messages.each do |message|
             %li= message
 
-    .my-6.flex
-      = f.label :domain
-      = f.text_area :domain
-    .my-6.flex
-      = f.label :billing_email
-      = f.text_field :billing_email
-    .my-6.flex
-      %small An email of the user that has access to seeing all users set up for the organization so that block filters can be applied to them
-      = f.label :admin_email
-      = f.text_field :admin_email
-    .my-6
-      = f.label :google_domain_wide_delegation_credentials, class: "w-full"
-      = f.text_area :google_domain_wide_delegation_credentials, class: "w-full"
-    .my-6.flex
-      = f.submit 'Save'
+
+    .my-6.flex-col
+      = f.label :domain, class: "inline-block text-gray-700 mb-2"
+      = f.text_field :domain, class: "block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+
+    .my-6.flex-col
+      = f.label :billing_email, class: "inline-block text-gray-700 mb-2"
+      = f.text_field :billing_email, class: "block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+
+    .my-6.flex-col
+      = f.label :admin_email, class: "inline-block text-gray-700 mb-2"
+      = f.text_field :admin_email, class: "block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+      %small.text-xs.text-gray-600 An email of a user who has got access to listing all users set up for the organization, usually a workspace admin. Only organisation members that are visible to this user will have the email filters applied.
+
+    .my-6.flex-col
+      = f.label :google_domain_wide_delegation_credentials, class: "inline-block text-gray-700 mb-2"
+      = f.text_area :google_domain_wide_delegation_credentials, rows: 8, class: "block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+    .my-6.flex-col
+      = f.submit 'Save', class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out"
