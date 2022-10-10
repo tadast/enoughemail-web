@@ -2,22 +2,23 @@
 
 ## MVP (usable for Chattermill)
 - [x] Set up domain
-- [ ] Encrypt the google credentials
+- [~] Landing site with value proposition
+- [x] Encrypt the google credentials
 - [ ] Set up inbound email in prod
 - [ ] Access control to manage orgs and rules, how do we know who's an admin?
 - [ ] Flow from new user to org
 - [ ] Roles, adding others to the org
 - [ ] Page/video for Google setup instructions
-- [ ] Landing site with value proposition
 - [ ] Add labels to filtered emails?
 - [ ] Prevent blocking common domains like gmail.com
-- [ ] FilterRule destruction logic
 - [x] Add block rules to our database so that filters can be recreated
 - [x] Deploy
 - [x] Decide and buy a domain
 
 ## 2nd client
-
+- [ ] when removing rules from UI, allow grace period i.e. mark for removal -> undo
+- [ ] create new rules via UI
+- [ ] allow bulk-importing domain rules
 - [ ] Basic branding
 - [ ] Logo
 - [ ] Onboarding email/video

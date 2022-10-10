@@ -2,6 +2,9 @@ class FilterRule < ApplicationRecord
   belongs_to :user
   belongs_to :organization
 
+  validates :scope, presence: true, inclusion: %w[for_everyone for_individual]
+  validates :source, presence: true, inclusion: %w[email ui]
+
   enum scope: {
     for_everyone: "for_everyone",
     for_individual: "for_individual"
