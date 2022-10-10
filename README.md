@@ -10,7 +10,7 @@
 - [ ] Roles, adding others to the org
 - [ ] Page/video for Google setup instructions
 - [ ] Add labels to filtered emails?
-- [ ] Prevent blocking common domains like gmail.com
+- [x] Prevent blocking common domains like gmail.com
 - [x] Add block rules to our database so that filters can be recreated
 - [x] Deploy
 - [x] Decide and buy a domain
@@ -28,3 +28,8 @@
 - [ ] Pricing numbers and page
 - [ ] How to charge (invoice?, later stripe)
 - [ ] Add custom labels to filtered emails i.e. block-domain-for-everyone+recruiters@.. would add a 'recruiters' label
+
+
+## Data
+
+Common [email domains list source](https://gist.github.com/ammarshah/f5c2624d767f91a7cbdc4e54db8dd0bf).
