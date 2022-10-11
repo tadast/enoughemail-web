@@ -10,6 +10,7 @@
 - [ ] Roles, adding others to the org
 - [ ] Page/video for Google setup instructions
 - [ ] Add labels to filtered emails?
+- [ ] Prevent blocking own domain
 - [x] Prevent blocking common domains like gmail.com
 - [x] Add block rules to our database so that filters can be recreated
 - [x] Deploy
