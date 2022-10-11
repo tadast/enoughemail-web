@@ -28,6 +28,7 @@
 - [ ] Pricing numbers and page
 - [ ] How to charge (invoice?, later stripe)
 - [ ] Add custom labels to filtered emails i.e. block-domain-for-everyone+recruiters@.. would add a 'recruiters' label
+- [ ] Easy way to send cease and desist emails
 
 
 ## Data
