@@ -48,6 +48,11 @@ class ForwardsMailbox < ApplicationMailbox
       inbound_email.bounced!
       # TODO: bounce_with Forwards::BounceMailer.common_email_domain(inbound_email, forwarder: forwarder)
     end
+
+    if email_address_domain_to_block == forwarder.organization.domain
+      inbound_email.bounced!
+      # TODO: bounce_with Forwards::BounceMailer.self_own(inbound_email, forwarder: forwarder)
+    end
   end
 
   def intends_to_block_domain?
