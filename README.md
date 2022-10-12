@@ -5,12 +5,12 @@
 - [~] Landing site with value proposition
 - [x] Encrypt the google credentials
 - [ ] Set up inbound email in prod
-- [ ] Access control to manage orgs and rules, how do we know who's an admin?
+- [ ] Access control to manage orgs and rules, how do we know who's an admin? Try admin@domain, if not available, ask who's an admin?
 - [ ] Flow from new user to org
 - [ ] Roles, adding others to the org
 - [ ] Page/video for Google setup instructions
 - [ ] Add labels to filtered emails?
-- [ ] Prevent blocking own domain
+- [x] Prevent blocking own domain
 - [x] Prevent blocking common domains like gmail.com
 - [x] Add block rules to our database so that filters can be recreated
 - [x] Deploy
@@ -35,3 +35,5 @@
 ## Data
 
 Common [email domains list source](https://gist.github.com/ammarshah/f5c2624d767f91a7cbdc4e54db8dd0bf).
+
+[SVG illustrations](https://freesvgillustration.com)

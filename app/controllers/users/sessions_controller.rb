@@ -4,7 +4,8 @@ class Users::SessionsController < ApplicationController
   end
 
   def destroy
-    # TODO
+    sign_out
+    redirect_to root_path
   end
 
   private
@@ -12,7 +13,11 @@ class Users::SessionsController < ApplicationController
   def redirect_authenticated_to_root
     return unless user_signed_in?
     if current_user.organization.nil?
-      redirect_to new_organization_path and return
+      if EmailDomain.from_address(current_user.email).common?
+        redirect_to common_domain_organization_path and return
+      else
+        redirect_to new_organization_path and return
+      end
     end
     redirect_to current_user.organization
   end

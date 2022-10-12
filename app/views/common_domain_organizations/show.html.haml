@@ -1,0 +1,17 @@
+.max-w-screen-md.p-10.mx-auto
+  %h1.text-4xl.my-6
+    Individual user account
+
+  .bg-purple-100.rounded-lg.py-5.px-6.mb-4.text-base.text-purple-700.mb-3
+    You have signed up using a personal email account
+    = current_user.email
+
+  = inline_svg_tag "illustrations/busy-at-the-workplace.svg", class: "px-10"
+
+  %div.my-10.text-xl
+    Enough Email currently works for Google Workspace emails only. Please
+    = button_to "log out", users_session_path, method: :delete, form_class: "inline underline text-purple-700"
+    and log in using your work email address instead.
+
+    %p.my-10
+      We will notify you when Enough Email for individuals becomes available.

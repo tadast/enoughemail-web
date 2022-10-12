@@ -9,7 +9,11 @@ class User < ApplicationRecord
 
   def self.from_google(google_params)
     User.find_or_create_by!(provider: "google", uid: google_params.fetch(:uid), email: google_params.fetch(:email).downcase).tap do |user|
-      user.update!(organization: Organization.where(domain: user.email.split("@").last)) unless user.organization
+      unless user.organization
+        user.update!(
+          organization: Organization.for_user_email(user.email)
+        )
+      end
     end
   end
 
