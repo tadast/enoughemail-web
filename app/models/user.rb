@@ -21,4 +21,8 @@ class User < ApplicationRecord
     # TODO: return nil if not a moderator?
     organization.google_service
   end
+
+  def domain_from_email
+    email.downcase.split("@").last
+  end
 end

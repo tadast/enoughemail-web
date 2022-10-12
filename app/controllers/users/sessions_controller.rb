@@ -16,7 +16,7 @@ class Users::SessionsController < ApplicationController
       if EmailDomain.from_address(current_user.email).common?
         redirect_to common_domain_organization_path and return
       else
-        redirect_to new_organization_path and return
+        redirect_to onboarding_organizations_path and return
       end
     end
     redirect_to current_user.organization

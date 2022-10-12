@@ -1,0 +1,14 @@
+.p-6
+  %h1.text-3xl.my-6
+    Welcome to
+    %b= current_user.domain_from_email
+
+  .text-xl.my-6
+    Access to a Google Workspace admin account is required to set up Enough Email for
+    %b= "#{current_user.domain_from_email}."
+    Please contact your organization admin to set it up.
+
+  .m-6
+    = link_to new_organization_path, class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out" do
+      I am with an organization admin
+

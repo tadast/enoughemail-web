@@ -1,6 +1,4 @@
-.flex-col
-  %h1 New organization
+.p-6
+  %h1.text-3xl= "Setting up #{current_user.domain_from_email}"
 
-  = render 'form'
-
-  = link_to 'Back', organizations_path
+= render 'form'
