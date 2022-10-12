@@ -1,7 +1,6 @@
 class OrganizationsController < AuthenticatedController
   before_action :set_organization, only: %i[show edit update destroy]
-  skip_before_action :ensure_organisation_set_up, only: [:new, :onboarding, :not_admin]
-
+  skip_before_action :ensure_organisation_set_up
   # GET /organizations/1
   def show
   end
