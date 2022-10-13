@@ -5,6 +5,10 @@
     %b Billing email:
     = @organization.billing_email
 
+  %p
+    %b Google domain-wide delegation credentials:
+    = @organization.google_domain_wide_delegation_credentials.present? ? "Uploaded" : "Not present"
+
 
   .flex.space-x-3
     = turbo_frame_tag "google-workspace-test" do
