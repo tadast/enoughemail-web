@@ -1,0 +1,5 @@
+= turbo_frame_tag "google-workspace-test" do
+  %div{class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-red-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md"}
+    %h2.text-lg.font-medium Issue detected
+    - error_messages.each do |message|
+      %p= message

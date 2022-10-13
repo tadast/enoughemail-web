@@ -7,9 +7,10 @@
 - [x] Flow from new user to org
 - [ ] Set up inbound email in prod
 - [ ] Access control to manage orgs and rules, how do we know who's an admin? Try admin@domain, if not available, ask who's an admin?
+- [ ] Test Google credentials/admin button
 - [ ] Roles, adding others to the org
-- [ ] Page/video for Google setup instructions
 - [ ] Add labels to filtered emails?
+- [ ] Page/video for Google setup instructions
 - [ ] Implement rule deletion in the UI
 - [x] Prevent blocking own domain
 - [x] Prevent blocking common domains like gmail.com

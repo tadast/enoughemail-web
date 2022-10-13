@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     get :onboarding, on: :collection
     get :not_admin, on: :collection
   end
+  resources :organization_credentials_tests, only: [:show, :create]
   resource :common_domain_organization, only: [:show]
   resources :filter_rules, only: [:index, :destroy]
   namespace :users do

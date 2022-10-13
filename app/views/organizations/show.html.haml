@@ -1,10 +1,12 @@
-%p#notice= notice
+.p-6.space-y-3
+  %h1.text-3xl= @organization.domain
 
-%p
-  %b Domain:
-  = @organization.domain
-%p
-  %b Billing email:
-  = @organization.billing_email
+  %p
+    %b Billing email:
+    = @organization.billing_email
 
-= link_to 'Edit', edit_organization_path(@organization)
+
+  .flex.space-x-3
+    = turbo_frame_tag "google-workspace-test" do
+      = button_to "Test Google Workplace connection", organization_credentials_tests_path, method: :post, class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out"
+    = link_to 'Edit', edit_organization_path(@organization), class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-gray-200 text-gray-700 font-medium text-sm leading-snug rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
