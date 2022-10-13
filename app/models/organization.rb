@@ -4,7 +4,8 @@ class Organization < ApplicationRecord
 
   encrypts :google_domain_wide_delegation_credentials
 
-  validates :domain, uniqueness: true
+  validates :domain, uniqueness: true, presence: true
+  validates :google_domain_wide_delegation_credentials, presence: true
   validate :non_common_domain
 
   def self.for_user_email(email_address)

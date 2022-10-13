@@ -4,12 +4,13 @@
 - [x] Set up domain
 - [~] Landing site with value proposition
 - [x] Encrypt the google credentials
+- [x] Flow from new user to org
 - [ ] Set up inbound email in prod
 - [ ] Access control to manage orgs and rules, how do we know who's an admin? Try admin@domain, if not available, ask who's an admin?
-- [ ] Flow from new user to org
 - [ ] Roles, adding others to the org
 - [ ] Page/video for Google setup instructions
 - [ ] Add labels to filtered emails?
+- [ ] Implement rule deletion in the UI
 - [x] Prevent blocking own domain
 - [x] Prevent blocking common domains like gmail.com
 - [x] Add block rules to our database so that filters can be recreated

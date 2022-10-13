@@ -1,8 +1,8 @@
 .flex.mx-6.max-w-screen-md
   = form_for @organization, html: { class: "w-full" } do |f|
     - if @organization.errors.any?
-      #error_explanation
-        %h2= "#{pluralize(@organization.errors.count, "error")} prohibited this organization from being saved:"
+      #error_explanation.bg-red-100.rounded-lg.py-5.px-6.mb-4.text-base.text-red-700.mb-3
+        %h2.text-lg.font-medium= "#{pluralize(@organization.errors.count, "error")} prevented this organization from being saved:"
         %ul
           - @organization.errors.full_messages.each do |message|
             %li= message

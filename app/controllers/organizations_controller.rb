@@ -26,6 +26,8 @@ class OrganizationsController < AuthenticatedController
 
     @organization = Organization.new(organization_params)
 
+    @organization.domain ||= current_user.domain_from_email
+
     if @organization.save
       current_user.update!(organization: @organization)
       redirect_to @organization, notice: "Organization was successfully created."
