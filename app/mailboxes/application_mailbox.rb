@@ -1,3 +1,3 @@
 class ApplicationMailbox < ActionMailbox::Base
-  routing /block/i => :forwards
+  routing(/@had\.enoughemail/i => :forwards)
 end

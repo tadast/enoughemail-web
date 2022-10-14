@@ -13,6 +13,7 @@
 - [x] Deploy
 - [x] Decide and buy a domain
 - [ ] Set up inbound email in prod
+- [ ] Option to block for me v.s. everyone
 - [ ] Implement rule deletion in the UI
 - [ ] Switch to a paid render.com plan
 
