@@ -24,6 +24,10 @@ class OrganizationCredentialsTestsController < AuthenticatedController
     end
   end
 
+  def html_title
+    super + " - Credentials test"
+  end
+
   private
 
   def check_for_errors(&block)

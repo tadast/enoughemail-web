@@ -51,6 +51,10 @@ class OrganizationsController < AuthenticatedController
     # redirect_to organizations_url, notice: "Organization was successfully destroyed."
   end
 
+  def html_title
+    super + " - Organization"
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

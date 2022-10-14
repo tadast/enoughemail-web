@@ -40,6 +40,10 @@ class FilterRulesController < AuthenticatedController
     redirect_to filter_rules_url, notice: "Filter rule was successfully removed."
   end
 
+  def html_title
+    super + " - Filter rules"
+  end
+
   private
 
   def set_filter_rule
