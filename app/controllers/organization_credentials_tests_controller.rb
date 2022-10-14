@@ -10,6 +10,7 @@ class OrganizationCredentialsTestsController < AuthenticatedController
       users = service.users
     end
 
+    # This might not be required as 'service' will fail if authorized scopes do not match Google::Service::SCOPES
     if users
       error_messages[:gmail_basic_settings_access] = check_for_errors do
         service.list_filters(user_email: users.last.emails.first["address"])
@@ -36,7 +37,17 @@ class OrganizationCredentialsTestsController < AuthenticatedController
       error_messages << "Google credentials has to be a valid JSON object"
       Rails.logger.warn "Org #{current_user.organization_id} has invalid Google creds: #{e.class} #{e.message}"
     rescue Signet::AuthorizationError => e
-      error_messages << "Google credentials unauthorized. Have they expired or were removed? Are all access scopes configured correctly?"
+      response_body = JSON.parse(e.response.body)
+      case response_body["error_description"].strip
+      when "Invalid email or User ID"
+        error_messages << "Google credentials unauthorized. Is 'Admin email' setting on the organization correct?"
+      when "Requested client not authorized."
+        error_messages << "Google credentials unauthorized. Are scopes in Google Workspace Admin panel for domain-wide delegation set up correctly?"
+        error_messages << "Scopes required: '#{Google::Service::SCOPES.join(",")}'"
+      else
+        error_messages << "Google credentials unauthorized. Have they expired or were removed? Google error description: #{response_body["error_description"].strip}"
+      end
+
       Rails.logger.warn "Org #{current_user.organization_id} has invalid Google creds: #{e.class} #{e.message}"
     end
 
