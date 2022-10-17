@@ -17,7 +17,12 @@ class FilterRule < ApplicationRecord
 
   def apply_to_google!
     service = user.google_service
-    service.create_filters_for_everyone(email_pattern: email_pattern) # FIXME: error handling, logging?
+
+    if scope.to_sym == :for_everyone
+      service.create_filters_for_everyone(email_pattern: email_pattern) # FIXME: error handling, logging?
+    else
+      service.create_filter_for(user_email: user.email, email_pattern: email_pattern) # FIXME: error handling, logging?
+    end
     update!(applied: true)
   end
 end

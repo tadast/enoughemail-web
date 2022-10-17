@@ -3,19 +3,16 @@ class ForwardsMailbox < ApplicationMailbox
   before_processing :check_if_client, :check_if_valid_block
 
   def process
-    # Record the forward on the one project, or…
-    target_email = email_address_to_block
-
     email_pattern = if intends_to_block_domain?
       "*@#{email_address_domain_to_block}"
     else
-      target_email
+      email_address_to_block
     end
 
     filter_rule = forwarder.filter_rules.create!(
       organization: forwarder.organization,
       email_pattern: email_pattern,
-      scope: :for_everyone, # TODO: add ability to block for self only v.s. the whole org
+      scope: intends_to_block_for_everyone? ? :for_everyone : :for_individual,
       source: :email
     )
     filter_rule.apply_to_google!
@@ -56,13 +53,19 @@ class ForwardsMailbox < ApplicationMailbox
   end
 
   def intends_to_block_domain?
-    mail_to = mail.to.first
+    mail_to_address.match?(/domain/)
+  end
 
-    mail_to.match?(/domain/)
+  def intends_to_block_for_everyone?
+    mail_to_address.match?(/everybody/) || mail_to_address.match?(/everyone/)
   end
 
   def forwarder
     # TODO: check for spoofing?
     @forwarder ||= User.find_by(email: mail.from.first.downcase)
+  end
+
+  def mail_to_address
+    @mail_to_address ||= mail.to.find { |address| address.to_s.include?("@had.enoughemail.com") }
   end
 end

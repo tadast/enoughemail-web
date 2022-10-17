@@ -12,10 +12,11 @@
 - [x] Add block rules to our database so that filters can be recreated
 - [x] Deploy
 - [x] Decide and buy a domain
-- [ ] Set up inbound email in prod
-- [ ] Option to block for me v.s. everyone
+- [x] Switch to a paid render.com plan
+- [x] configure GCS for prod
+- [x] Set up inbound email in prod
+- [x] Option to block for me only v.s. everyone
 - [ ] Implement rule deletion in the UI
-- [ ] Switch to a paid render.com plan
 
 ## 2nd client
 - [ ] Set up work email @enoughemail.com
@@ -23,6 +24,7 @@
 - [ ] Roles, adding others to the org
 - [ ] Add labels to filtered emails?
 - [ ] When a new user joins the org, apply all pre-existing Filter Rules
+- [ ] Email cheat-sheet w/ pdf attached when a new user onboards
 - [ ] when removing rules from UI, allow grace period i.e. mark for removal -> undo
 - [ ] create new rules via UI
 - [ ] allow bulk-importing domain rules
