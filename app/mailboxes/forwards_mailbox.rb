@@ -30,7 +30,7 @@ class ForwardsMailbox < ApplicationMailbox
   end
 
   def email_address_domain_to_block
-    domain = target_email.split("@").last.to_s
+    domain = email_address_to_block.split("@").last.to_s
     raise "invalid domain: #{domain}" unless domain.to_s.size > 4 && domain.include?(".")
 
     domain
