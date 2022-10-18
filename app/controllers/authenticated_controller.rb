@@ -1,6 +1,7 @@
 class AuthenticatedController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_organisation_set_up
+  layout "authenticated"
 
   private
 
