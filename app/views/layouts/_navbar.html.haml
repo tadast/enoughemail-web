@@ -1,13 +1,13 @@
 %nav.bg-indigo-500.px-6.text-white{:class => "py-2.5"}
-  .flex.flex-wrap.justify-between.items-center.w-full
+  .flex.flex-wrap.justify-between.items-center.w-full{ data: { controller: "toggle"}}
     %a.flex.items-center{:href => root_url}
       = inline_svg_tag "logo", class: "h-6 w-6 sm:h-9 sm:w-9"
       %span.ml-3.self-center.text-xl.font-semibold.whitespace-nowrap Enough Email
-    %button.inline-flex.items-center.p-2.ml-3.text-sm.text-white.rounded-lg.md:hidden.hover:bg-indigo-900.focus:outline-none.focus:ring-2.focus:ring-gray-200{"aria-controls" => "navbar-default", "aria-expanded" => "false", "data-collapse-toggle" => "navbar-default", :type => "button"}
+    %button.inline-flex.items-center.p-2.ml-3.text-sm.text-white.rounded-lg.md:hidden.hover:bg-indigo-900.focus:outline-none.focus:ring-2.focus:ring-gray-200{"aria-controls" => "navbar-default", :type => "button", data: { action: "toggle#toggle"}}
       %span.sr-only Open main menu
       %svg.w-6.h-6{"aria-hidden" => "true", :fill => "currentColor", :viewbox => "0 0 20 20", :xmlns => "http://www.w3.org/2000/svg"}
         %path{"clip-rule" => "evenodd", :d => "M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z", "fill-rule" => "evenodd"}
-    #navbar-default.hidden.w-full.md:block.md:w-auto
+    #navbar-default.hidden.w-full.md:block.md:w-auto{ data: { "toggle-target" => "subject" }}
       %ul.flex.flex-col.p-4.mt-4.rounded-lg.md:flex-row.md:space-x-8.md:mt-0.md:text-sm.md:font-medium.md:border-0
         %li
           %a.block.py-2.pr-4.pl-3.text-gray-100.rounded.hover:bg-indigo-900.md:hover:bg-transparent.md:border-0.md:hover:text-white.md:p-0{:href => filter_rules_path} Filter Rules
