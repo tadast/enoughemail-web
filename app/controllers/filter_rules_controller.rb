@@ -35,9 +35,8 @@ class FilterRulesController < AuthenticatedController
 
   # DELETE /filter_rules/1
   def destroy
-    @filter_rule.destroy
-    # TODO queue a job to destroy the rules for everyone
-    redirect_to filter_rules_url, notice: "Filter rule was successfully removed."
+    FilterRuleRemovalJob.perform_later(filter_rule: @filter_rule, user: current_user)
+    redirect_to filter_rules_url, notice: "Filter rule removal has started successfully."
   end
 
   def html_title

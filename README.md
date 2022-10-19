@@ -16,6 +16,7 @@
 - [x] configure GCS for prod
 - [x] Set up inbound email in prod
 - [x] Option to block for me only v.s. everyone
+- [x] Nav bar?
 - [ ] Implement rule deletion in the UI
 
 ## 2nd client
@@ -38,6 +39,7 @@
 - [ ] How to charge (invoice?, later stripe)
 - [ ] Add custom labels to filtered emails i.e. block-domain-for-everyone+recruiters@.. would add a 'recruiters' label
 - [ ] Easy way to send cease and desist emails?
+- [ ] Paginate filter rules
 
 
 ## Data

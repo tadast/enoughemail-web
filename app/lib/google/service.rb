@@ -1,5 +1,6 @@
 class Google::Service
   SCOPES = [Google::Apis::AdminDirectoryV1::AUTH_ADMIN_DIRECTORY_USER_READONLY, Google::Apis::GmailV1::AUTH_GMAIL_SETTINGS_BASIC]
+  FILTER_LABELS_TO_REMOVE = ["UNREAD", "IMPORTANT", "INBOX"].sort.freeze
 
   def initialize(credentials_json:, org_admin_email:)
     @credentials_json = credentials_json
@@ -35,14 +36,41 @@ class Google::Service
   def list_filters(user_email:)
     gmail = Google::Apis::GmailV1::GmailService.new
     gmail.authorization = service_authorization(as: user_email)
-    gmail.list_user_setting_filters("me")
+    gmail.list_user_setting_filters("me").filter
+  end
+
+  def delete_filter_for_everyone(email_pattern:)
+    users.each do |user|
+      email = user.emails.first { |h| h["primary"] }["address"]
+
+      begin
+        delete_filter_for(user_email: email, email_pattern: email_pattern)
+      rescue Google::Apis::ClientError => e
+        Rails.logger.error(e.message)
+      end
+    end
+  end
+
+  def delete_filter_for(user_email:, email_pattern:)
+    filters = list_filters(user_email: user_email)
+
+    relevant_filters = filters.select do |filter|
+      filter.criteria.from.to_s.downcase == email_pattern &&
+        filter.action.remove_label_ids.sort == FILTER_LABELS_TO_REMOVE
+    end
+
+    gmail = gmail_service(as: user_email)
+
+    relevant_filters.each do |filter|
+      gmail.delete_user_setting_filter("me", filter.id)
+    end
   end
 
   def everyones_filters
     users.each do |user|
       email = user.emails.first { |h| h["primary"] }["address"]
       filters = list_filters(user_email: email)
-      puts "#{email}: #{filters}"
+      Rails.logger.info "#{email}: #{filters}"
     end
   end
 
@@ -58,8 +86,7 @@ class Google::Service
   end
 
   def create_filter_for(user_email:, email_pattern:)
-    gmail = Google::Apis::GmailV1::GmailService.new
-    gmail.authorization = service_authorization(as: user_email)
+    gmail = gmail_service(as: user_email)
 
     gmail.create_user_setting_filter(
       "me",
@@ -71,5 +98,14 @@ class Google::Service
       quota_user: nil,
       options: nil
     )
+  end
+
+  private
+
+  def gmail_service(as: user_email)
+    gmail = Google::Apis::GmailV1::GmailService.new
+    gmail.authorization = service_authorization(as: as)
+
+    gmail
   end
 end
