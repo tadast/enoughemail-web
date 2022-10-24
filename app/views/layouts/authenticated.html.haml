@@ -9,6 +9,10 @@
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
   %body.text-gray-900
-    = render "layouts/flash"
-    = render "layouts/navbar"
-    = yield
+    .min-h-screen.flex.flex-col.justify-start
+      = render "layouts/flash"
+      = render "layouts/navbar"
+      = yield
+      -# %footer.mt-auto.bg-indigo-500.text-white.w-full.px-6.py-2
+      -#   .text-right
+      -#     = mail_to "support@enoughemail.com", "Get help"

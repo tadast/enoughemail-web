@@ -21,6 +21,8 @@
 
 ## 2nd client
 - [x] Set up work email @enoughemail.com
+- [ ] Select a list of users in the org
+- [ ] Collect and show event history for each org
 - [ ] Access control to manage orgs and rules, how do we know who's an admin? Try admin@domain, if not available, ask who's an admin?
 - [ ] Roles, adding others to the org
 - [ ] Add labels to filtered emails?
@@ -30,7 +32,7 @@
 - [ ] create new rules via UI
 - [ ] allow bulk-importing domain rules
 - [ ] Basic branding
-- [ ] Logo
+- [x] Logo
 - [ ] Onboarding email/video
 - [ ] Allow org admin to add more moderators
 - [ ] Add forwarding emails to gmail user address book

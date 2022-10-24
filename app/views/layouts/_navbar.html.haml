@@ -16,6 +16,7 @@
         - if current_user.organization_id
           %li
             %a.block.py-2.pr-4.pl-3.text-gray-100.rounded.hover:bg-indigo-900.md:hover:bg-transparent.md:border-0.md:hover:text-white.md:p-0{:href => organization_path(current_user.organization_id)} Organization Settings
-
+        %li
+          = mail_to "support@enoughemail.com", "Help"
         %li
           = button_to "Log out", users_session_path, method: :delete, form_class: "w-full", class: "w-full text-left block py-2 pr-4 pl-3 text-gray-100 rounded hover:bg-indigo-900 md:hover:bg-transparent md:border-0 md:hover:text-pink-200 md:p-0"
