@@ -17,10 +17,10 @@
 - [x] Set up inbound email in prod
 - [x] Option to block for me only v.s. everyone
 - [x] Nav bar?
-- [ ] Implement rule deletion in the UI
+- [x] Implement rule deletion in the UI
 
 ## 2nd client
-- [ ] Set up work email @enoughemail.com
+- [x] Set up work email @enoughemail.com
 - [ ] Access control to manage orgs and rules, how do we know who's an admin? Try admin@domain, if not available, ask who's an admin?
 - [ ] Roles, adding others to the org
 - [ ] Add labels to filtered emails?
@@ -40,6 +40,7 @@
 - [ ] Add custom labels to filtered emails i.e. block-domain-for-everyone+recruiters@.. would add a 'recruiters' label
 - [ ] Easy way to send cease and desist emails?
 - [ ] Paginate filter rules
+- [ ] Make it available on Google Workspace Marketplace
 
 
 ## Data
@@ -47,3 +48,11 @@
 Common [email domains list source](https://gist.github.com/ammarshah/f5c2624d767f91a7cbdc4e54db8dd0bf).
 
 [SVG illustrations](https://freesvgillustration.com)
+
+## Setup video
+
+After following [setup instructions](https://developers.google.com/workspace/guides/create-credentials#service-account) I also needed to enable:
+https://console.developers.google.com/apis/api/admin.googleapis.com/overview
+https://console.developers.google.com/apis/api/gmail.googleapis.com/overview
+
+consider disabling them before making the onboarding video?

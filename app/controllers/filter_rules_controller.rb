@@ -3,7 +3,10 @@ class FilterRulesController < AuthenticatedController
 
   # GET /filter_rules
   def index
-    @filter_rules = current_organization.filter_rules
+    if params[:except]
+      flash[:notice] = "Filter rule removal is in-progress"
+    end
+    @filter_rules = current_organization.filter_rules.where.not(id: params[:except])
   end
 
   # GET /filter_rules/new
@@ -36,7 +39,7 @@ class FilterRulesController < AuthenticatedController
   # DELETE /filter_rules/1
   def destroy
     FilterRuleRemovalJob.perform_later(filter_rule: @filter_rule, user: current_user)
-    redirect_to filter_rules_url, notice: "Filter rule removal has started successfully."
+    redirect_to filter_rules_url(except: @filter_rule.id), notice: "Filter rule removal has started successfully."
   end
 
   def html_title

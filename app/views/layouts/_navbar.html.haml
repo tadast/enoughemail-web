@@ -9,9 +9,13 @@
         %path{"clip-rule" => "evenodd", :d => "M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z", "fill-rule" => "evenodd"}
     #navbar-default.hidden.w-full.md:block.md:w-auto{ data: { "toggle-target" => "subject" }}
       %ul.flex.flex-col.p-4.mt-4.rounded-lg.md:flex-row.md:space-x-8.md:mt-0.md:text-sm.md:font-medium.md:border-0
+
         %li
           %a.block.py-2.pr-4.pl-3.text-gray-100.rounded.hover:bg-indigo-900.md:hover:bg-transparent.md:border-0.md:hover:text-white.md:p-0{:href => filter_rules_path} Filter Rules
-        %li
-          %a.block.py-2.pr-4.pl-3.text-gray-100.rounded.hover:bg-indigo-900.md:hover:bg-transparent.md:border-0.md:hover:text-white.md:p-0{:href => organization_path(current_user.organization_id)} Organization Settings
+
+        - if current_user.organization_id
+          %li
+            %a.block.py-2.pr-4.pl-3.text-gray-100.rounded.hover:bg-indigo-900.md:hover:bg-transparent.md:border-0.md:hover:text-white.md:p-0{:href => organization_path(current_user.organization_id)} Organization Settings
+
         %li
           = button_to "Log out", users_session_path, method: :delete, form_class: "w-full", class: "w-full text-left block py-2 pr-4 pl-3 text-gray-100 rounded hover:bg-indigo-900 md:hover:bg-transparent md:border-0 md:hover:text-pink-200 md:p-0"

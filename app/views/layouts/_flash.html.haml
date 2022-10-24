@@ -1,0 +1,12 @@
+- if flash.any?
+  .w-full
+    - flash.each do |name, message|
+      - if name == "alert"
+        .bg-red-300.p-6
+          = message
+      - elsif name == "notice"
+        .bg-green-300.p-6
+          = message
+      - else
+        .bg-yellow-200.p-6
+          = message

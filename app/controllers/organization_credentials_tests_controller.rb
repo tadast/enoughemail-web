@@ -49,10 +49,13 @@ class OrganizationCredentialsTestsController < AuthenticatedController
         error_messages << "Google credentials unauthorized. Are scopes in Google Workspace Admin panel for domain-wide delegation set up correctly?"
         error_messages << "Scopes required: '#{Google::Service::SCOPES.join(",")}'"
       else
-        error_messages << "Google credentials unauthorized. Have they expired or were removed? Google error description: #{response_body["error_description"].strip}"
+        error_messages << "Google credentials unauthorized. Have you set up domain-wide delegation? Have credentials expired or were removed? Google error description: #{response_body["error_description"].strip}"
       end
 
       Rails.logger.warn "Org #{current_user.organization_id} has invalid Google creds: #{e.class} #{e.message}"
+    rescue Google::Apis::ClientError => e
+      error_messages << "Error from Google: #{e.message}"
+      Rails.logger.warn "Org #{current_user.organization_id} has an issue with a service account: #{e.class} #{e.message}"
     end
 
     error_messages
