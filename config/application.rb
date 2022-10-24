@@ -31,5 +31,7 @@ module EnoughEmail
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.active_job.queue_adapter = :delayed_job
+
+    config.filter_parameters += [:google_domain_wide_delegation_credentials]
   end
 end
