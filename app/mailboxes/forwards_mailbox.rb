@@ -15,7 +15,8 @@ class ForwardsMailbox < ApplicationMailbox
       scope: intends_to_block_for_everyone? ? :for_everyone : :for_individual,
       source: :email
     )
-    filter_rule.apply_to_google!
+
+    FilterRuleApplicationJob.perform_later(filter_rule: filter_rule)
   end
 
   private
