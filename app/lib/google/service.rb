@@ -16,21 +16,27 @@ class Google::Service
     auth
   end
 
-  def users(as_seen_by: @org_admin_email)
-    service = Google::Apis::AdminDirectoryV1::DirectoryService.new
-    # service.client_options.application_name = APPLICATION_NAME
-    service.authorization = service_authorization(as: as_seen_by)
-    # List the first 10 users in the domain
+  def users(as_seen_by: @org_admin_email, service: nil, page_token: nil)
+    if service.nil?
+      service = Google::Apis::AdminDirectoryV1::DirectoryService.new
+      # service.client_options.application_name = APPLICATION_NAME
+      service.authorization = service_authorization(as: as_seen_by)
+      # List the first 10 users in the domain
+    end
 
     # return super administrators: query: "isAdmin=true" / delegated admins query: "isDelegatedAdmin=true"
     response = service.list_users(customer: "my_customer",
-      max_results: 10,
-      order_by:    "email")
-    # puts "Users:"
-    # puts "No users found" if response.users.empty?
-    # response.users.each { |user| puts "- #{user.primary_email} (#{user.name.full_name})" }
+      max_results: 100,
+      order_by: "email",
+      page_token: page_token)
 
-    response.users.filter { |user| !user.suspended? && user.is_mailbox_setup? }
+    raw_users = response.users.filter { |user| !user.suspended? && user.is_mailbox_setup? }
+
+    if response.next_page_token
+      raw_users + users(as_seen_by: as_seen_by, service: service, page_token: response.next_page_token)
+    else
+      raw_users
+    end
   end
 
   def list_filters(user_email:)
