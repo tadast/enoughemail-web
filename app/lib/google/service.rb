@@ -41,7 +41,7 @@ class Google::Service
 
   def delete_filter_for_everyone(email_pattern:)
     users.each do |user|
-      email = user.emails.first { |h| h["primary"] }["address"]
+      email = user.emails.find { |h| h["primary"] }["address"]
 
       begin
         delete_filter_for(user_email: email, email_pattern: email_pattern)
@@ -68,7 +68,8 @@ class Google::Service
 
   def everyones_filters
     users.each do |user|
-      email = user.emails.first { |h| h["primary"] }["address"]
+      email = user.emails.find { |h| h["primary"] }["address"]
+      puts email
       filters = list_filters(user_email: email)
       Rails.logger.info "#{email}: #{filters}"
     end
@@ -76,7 +77,7 @@ class Google::Service
 
   def create_filters_for_everyone(email_pattern:)
     users.map do |user|
-      email = user.emails.first { |h| h["primary"] }["address"]
+      email = user.emails.find { |h| h["primary"] }["address"]
       begin
         create_filter_for(user_email: email, email_pattern: email_pattern)
       rescue Google::Apis::ClientError => e
