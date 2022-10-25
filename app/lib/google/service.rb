@@ -42,18 +42,15 @@ class Google::Service
   def list_filters(user_email:)
     gmail = Google::Apis::GmailV1::GmailService.new
     gmail.authorization = service_authorization(as: user_email)
+    # TODO: is there any pagination?
     gmail.list_user_setting_filters("me").filter
   end
 
   def delete_filter_for_everyone(email_pattern:)
     users.each do |user|
-      email = user.emails.find { |h| h["primary"] }["address"]
+      email = main_email(user)
 
-      begin
-        delete_filter_for(user_email: email, email_pattern: email_pattern)
-      rescue Google::Apis::ClientError => e
-        Rails.logger.error(e.message)
-      end
+      delete_filter_for(user_email: email, email_pattern: email_pattern)
     end
   end
 
@@ -73,22 +70,21 @@ class Google::Service
   end
 
   def everyones_filters
-    users.each do |user|
-      email = user.emails.find { |h| h["primary"] }["address"]
-      puts email
+    users.map do |user|
+      email = main_email(user)
+
       filters = list_filters(user_email: email)
       Rails.logger.info "#{email}: #{filters}"
+
+      [email, filters]
     end
   end
 
   def create_filters_for_everyone(email_pattern:)
     users.map do |user|
-      email = user.emails.find { |h| h["primary"] }["address"]
-      begin
-        create_filter_for(user_email: email, email_pattern: email_pattern)
-      rescue Google::Apis::ClientError => e
-        Rails.logger.error(e.message)
-      end
+      email = main_email(user)
+
+      create_filter_for(user_email: email, email_pattern: email_pattern)
     end
   end
 
@@ -114,5 +110,9 @@ class Google::Service
     gmail.authorization = service_authorization(as: as)
 
     gmail
+  end
+
+  def main_email(user)
+    user.emails.find { |h| h["primary"] }["address"]
   end
 end
