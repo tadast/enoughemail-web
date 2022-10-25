@@ -20,10 +20,13 @@
 - [x] Implement rule deletion in the UI
 
 ## 2nd client
+- [x] Set up error tracking (Honeybadger)
+- [ ] (bug) iOS landing page covers the Hero section
 - [x] Set up work email @enoughemail.com
 - [ ] Select a list of users in the org
 - [ ] Collect and show event history for each org
-- [ ] Access control to manage orgs and rules, how do we know who's an admin? Try admin@domain, if not available, ask who's an admin?
+- [ ] Access control to manage orgs and rules
+- [x] how do we know who's an admin? Try admin@domain, if not available, ask who's an admin?
 - [ ] Roles, adding others to the org
 - [ ] Add labels to filtered emails?
 - [ ] When a new user joins the org, apply all pre-existing Filter Rules
