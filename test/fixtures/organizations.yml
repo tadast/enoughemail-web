@@ -1,9 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  domain: MyText
-  billing_email: MyString
+  domain: test.enoughemail.com
+  billing_email: payables@test.enoughemail.com
+  google_domain_wide_delegation_credentials: '{"a": 1}'
 
 two:
-  domain: MyText
-  billing_email: MyString
+  domain: test2.enoughemail.com
+  billing_email: bills@test2.enoughemail.com
+  google_domain_wide_delegation_credentials: '{"a": 1}'

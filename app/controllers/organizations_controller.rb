@@ -32,6 +32,7 @@ class OrganizationsController < AuthenticatedController
       current_user.update!(organization: @organization)
       redirect_to @organization, notice: "Organization was successfully created."
     else
+      Rails.logger.error @organization.errors.full_messages
       render :new, status: :unprocessable_entity
     end
   end
@@ -41,6 +42,7 @@ class OrganizationsController < AuthenticatedController
     if @organization.update(organization_params)
       redirect_to @organization, notice: "Organization was successfully updated."
     else
+      Rails.logger.error @organization.errors.full_messages
       render :edit, status: :unprocessable_entity
     end
   end

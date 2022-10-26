@@ -18,34 +18,44 @@
 - [x] Option to block for me only v.s. everyone
 - [x] Nav bar?
 - [x] Implement rule deletion in the UI
+- [x] Error handling - make sure bg workers are idempotent
+- [x] paginate users - make sure to trawl through all pages of users recursively
+- [x] check if we can always use primary address, users have many aliases etc
+
+## Post shipping to chattermill
+
+- [ ] First to set up org is admin, admin confirms moderators
+- [ ] audit trail to see who signed up, changed filters
 
 ## 2nd client
-- [x] Set up error tracking (Honeybadger)
+- [ ] Moderators/admins can invite other moderators/admins
+- [ ] Add custom labels to filtered emails i.e. block-domain-for-everyone+recruiters@.. would add a 'recruiters' label
 - [ ] (bug) iOS landing page covers the Hero section
-- [x] Set up work email @enoughemail.com
-- [ ] Select a list of users in the org
-- [ ] Collect and show event history for each org
-- [ ] Access control to manage orgs and rules
-- [x] how do we know who's an admin? Try admin@domain, if not available, ask who's an admin?
-- [ ] Roles, adding others to the org
-- [ ] Add labels to filtered emails?
-- [ ] When a new user joins the org, apply all pre-existing Filter Rules
+- [ ] Pre-made lists that can be applied
+- [ ] Display a list of admins/moderators in the org
+- [ ] Display a list of Gmail users in the org
+- [ ] When a new user joins the Google Workspace, apply all pre-existing Filter Rules
 - [ ] Email cheat-sheet w/ pdf attached when a new user onboards
 - [ ] when removing rules from UI, allow grace period i.e. mark for removal -> undo
 - [ ] create new rules via UI
 - [ ] allow bulk-importing domain rules
+- [ ] Consider bundling newly created filter rules together under a single Gmail filter with "OR"
 - [ ] Basic branding
-- [x] Logo
 - [ ] Onboarding email/video
-- [ ] Allow org admin to add more moderators
 - [ ] Add forwarding emails to gmail user address book
 - [ ] Privacy policy and T&Cs
 - [ ] Pricing numbers and page
 - [ ] How to charge (invoice?, later stripe)
-- [ ] Add custom labels to filtered emails i.e. block-domain-for-everyone+recruiters@.. would add a 'recruiters' label
-- [ ] Easy way to send cease and desist emails?
 - [ ] Paginate filter rules
 - [ ] Make it available on Google Workspace Marketplace
+- [x] Set up error tracking (Honeybadger)
+- [x] Set up work email @enoughemail.com
+- [x] Logo
+- [x] how do we know who's an admin? Try admin@domain, if not available, ask who's an admin?
+
+## 3rd Client or later
+- [ ] like hey.com - shitlist by default, need to approve to receive in future. But on gmail
+- [ ] Easy way to send cease and desist emails?
 
 
 ## Data

@@ -1,17 +1,15 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  email_pattern: MyString
+  email_pattern: "*@spam.com"
   user: one
   organization: one
-  source: MyString
-  scope: MyString
-  google_filter_id: MyString
+  source: :email
+  scope: :for_everyone
 
 two:
-  email_pattern: MyString
+  email_pattern: "someone@spam.co.uk"
   user: two
   organization: two
-  source: MyString
-  scope: MyString
-  google_filter_id: MyString
+  source: :email
+  scope: :for_individual
