@@ -15,3 +15,6 @@ two:
 organizationless:
   email: test2@organizationless.enoughemail.com
 
+common_email_provider:
+  email: test@gmail.com
+
