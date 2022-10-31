@@ -26,8 +26,10 @@
 
 - [ ] First to set up org is admin, admin confirms moderators
 - [ ] audit trail to see who signed up, changed filters
+- [ ] Recognize user aliases when receiving email
 
 ## 2nd client
+- [ ] Respond to bounced emails
 - [ ] Moderators/admins can invite other moderators/admins
 - [ ] Add custom labels to filtered emails i.e. block-domain-for-everyone+recruiters@.. would add a 'recruiters' label
 - [ ] (bug) iOS landing page covers the Hero section

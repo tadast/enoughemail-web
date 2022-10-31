@@ -10,3 +10,13 @@
     = javascript_importmap_tags
   %body.text-gray-900
     = yield
+    %footer.mt-auto.bg-indigo-900.text-white.w-full.px-6.py-2
+      .flex.justify-between
+        %span
+          Built by
+          = link_to "Ok Do!", "https://www.okdo.co.uk", target: :blank, class: "underline"
+          2022
+        = mail_to "support@enoughemail.com" do
+          .flex.items-center
+            = inline_svg_tag "fa-icons/solid/life-ring.svg", class: "fill-white h-4 w-4 mr-2"
+            Get help
