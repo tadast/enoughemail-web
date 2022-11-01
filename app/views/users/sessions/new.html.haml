@@ -24,7 +24,7 @@
     .container.my-24.px-6.mx-auto
       %section.mb-32.text-gray-800.text-center
         %h2.text-3xl.font-bold.mb-20 Why Enough Email?
-        .grid.lg:gap-x-12.lg:grid-cols-3
+        .grid.md:gap-x-12.md:grid-cols-2.lg:grid-cols-4
           .mb-14.lg:mb-0
             .rounded-lg.shadow-lg.h-full.block.bg-white
               .flex.justify-center
@@ -33,17 +33,17 @@
               .p-6
                 %h5.text-lg.font-semibold.mb-4 Improves productivity
                 %p
-                  Keep everyones inbox free from useless email. Wave goodbye to cold sellers, unwanted recuiters and services that you can't unsubscribe from, no matter how much you try.
+                  Keep everyones inbox free from useless email. Wave goodbye to cold sellers, unwanted recuiters and services that you can't unsubscribe from, no matter how hard you try.
           .mb-14.lg:mb-0
             .rounded-lg.shadow-lg.h-full.block.bg-white
               .flex.justify-center
                 .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
-                  = inline_svg_tag "fa-icons/solid/shield-halved.svg", class: "w-8 h-8 text-white fill-current"
+                  = inline_svg_tag "fa-icons/solid/eye-slash.svg", class: "w-8 h-8 text-white fill-current"
               .p-6
-                %h5.text-lg.font-semibold.mb-4 Safe and secure
+                %h5.text-lg.font-semibold.mb-4 No peeking
                 %p
                   Enough Email does not need access to anyone's inbox. It works via Google Workplace configuration, so there are no additional security concerns.
-          %div
+          .mb-14.lg:mb-0
             .rounded-lg.shadow-lg.h-full.block.bg-white
               .flex.justify-center
                 .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
@@ -52,6 +52,16 @@
                 %h5.text-lg.font-semibold.mb-4 Extremely simple UI
                 %p
                   No software to install, no website to log in to. Forward an unwanted email sample to one of our filter inboxes to set up filters that protect <b>everyone</b> in your organisation.
+
+          .mb-14.lg:mb-0
+            .rounded-lg.shadow-lg.h-full.block.bg-white
+              .flex.justify-center
+                .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
+                  = inline_svg_tag "fa-icons/solid/envelope-circle-check.svg", class: "w-8 h-8 text-white fill-current"
+              .p-6
+                %h5.text-lg.font-semibold.mb-4 Keep your setup
+                %p
+                  Enough Email works on your existing Google Workplace setup. Everyone can keep using their favourite email client. It's a zero-friction solution.
   %section.bg-indigo-300.pb-40
     %h3.text-4xl.font-bold.text-center.py-14.text-gray-800 Who is it for?
 
