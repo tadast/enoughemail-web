@@ -21,6 +21,9 @@ class User < ApplicationRecord
     existing_org = Organization.for_user_email(user.email)
 
     if user.new_record?
+      # Delete an imported record
+      User.find_by(email: user.email, role: "imported").destroy
+
       if existing_org
         user.organization = existing_org
         user.role = "signed_up"
@@ -28,12 +31,17 @@ class User < ApplicationRecord
         user.role = "admin" # First user becomes an admin
       end
 
-      user.save!
-    elsif user.organization.nil? && existing_org # Existing user
-      user.update!(
-        organization: Organization.for_user_email(user.email)
-      )
+    else
+      if user.organization.nil? && existing_org # Existing user
+        user.organization = Organization.for_user_email(user.email)
+      end
+
+      if user.imported?
+        user.role = "signed_up"
+      end
+
     end
+    user.save!
   end
 
   def google_service
