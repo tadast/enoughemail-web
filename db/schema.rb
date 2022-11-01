@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_03_155211) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_01_102537) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -96,6 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_155211) do
     t.string "provider"
     t.string "uid"
     t.bigint "organization_id"
+    t.string "role", default: "imported"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
   end
