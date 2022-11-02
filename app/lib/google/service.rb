@@ -48,7 +48,7 @@ class Google::Service
 
   def delete_filter_for_everyone(email_pattern:)
     users.each do |user|
-      email = main_email(user)
+      email = user.primary_email
 
       delete_filter_for(user_email: email, email_pattern: email_pattern)
     end
@@ -71,7 +71,7 @@ class Google::Service
 
   def everyones_filters
     users.map do |user|
-      email = main_email(user)
+      email = user.primary_email
 
       filters = list_filters(user_email: email)
       Rails.logger.info "#{email}: #{filters}"
@@ -82,7 +82,7 @@ class Google::Service
 
   def create_filters_for_everyone(email_pattern:)
     users.map do |user|
-      email = main_email(user)
+      email = user.primary_email
 
       create_filter_for(user_email: email, email_pattern: email_pattern)
     end
@@ -110,9 +110,5 @@ class Google::Service
     gmail.authorization = service_authorization(as: as)
 
     gmail
-  end
-
-  def main_email(user)
-    user.emails.find { |h| h["primary"] }["address"]
   end
 end
