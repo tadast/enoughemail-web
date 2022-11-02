@@ -9,6 +9,11 @@
     %b Google domain-wide delegation credentials:
     = @organization.google_domain_wide_delegation_credentials.present? ? "Uploaded" : "Not present"
 
+  - if @organization.gmail_users.any?
+    %p
+      %b Users on GMail:
+      = @organization.gmail_users.count
+
 
   .flex.space-x-3
     = turbo_frame_tag "google-workspace-test" do

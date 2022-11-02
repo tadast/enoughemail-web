@@ -1,5 +1,6 @@
 class Organization < ApplicationRecord
   has_many :users, dependent: :nullify
+  has_many :gmail_users
   has_many :filter_rules
 
   encrypts :google_domain_wide_delegation_credentials

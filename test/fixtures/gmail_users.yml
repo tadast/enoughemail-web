@@ -1,0 +1,26 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  email: test1@test.enoughemail.com
+  organization: one
+  user: one
+  gid: 123456
+  full_name: MyText
+  archived: false
+  google_created_at: 2022-11-02 17:17:05
+
+unassigned:
+  email:  unassigned@test.enoughemail.com
+  organization: two
+  gid: 123457
+  full_name: Unassigned GUser
+  archived: false
+  google_created_at: 2022-11-02 17:17:05
+
+archived:
+  email:  archived@test.enoughemail.com
+  organization: one
+  gid: 123458
+  full_name: archived GUser
+  archived: true
+  google_created_at: 2022-11-02 17:17:05

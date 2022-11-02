@@ -18,6 +18,10 @@ class OrganizationCredentialsTestsController < AuthenticatedController
     end
 
     if error_messages.values.flatten.empty?
+      if current_user.organization&.gmail_users&.none?
+        GmailUserImportJob.perform_later(organization: current_user.organization)
+      end
+
       render partial: "success", status: :ok
     else
       render partial: "failure", locals: {error_messages: error_messages}, status: :unprocessable_entity

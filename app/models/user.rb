@@ -4,6 +4,7 @@ class User < ApplicationRecord
   devise :omniauthable, :rememberable, omniauth_providers: [:google_oauth2]
 
   belongs_to :organization, optional: true
+  has_one :gmail_user
   has_many :filter_rules
   has_many :organization_filter_rules, through: :organization, source: :filter_rules
 

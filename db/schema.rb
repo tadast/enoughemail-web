@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_03_155211) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_02_171704) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +79,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_155211) do
     t.index ["user_id"], name: "index_filter_rules_on_user_id"
   end
 
+  create_table "gmail_users", force: :cascade do |t|
+    t.string "email"
+    t.bigint "organization_id", null: false
+    t.bigint "user_id"
+    t.string "gid"
+    t.text "full_name"
+    t.boolean "archived", default: false, null: false
+    t.datetime "google_created_at", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_gmail_users_on_organization_id"
+    t.index ["user_id"], name: "index_gmail_users_on_user_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.text "domain"
     t.string "billing_email"
@@ -96,6 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_155211) do
     t.string "provider"
     t.string "uid"
     t.bigint "organization_id"
+    t.string "role", default: "imported"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
   end
@@ -104,5 +119,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_155211) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "filter_rules", "organizations"
   add_foreign_key "filter_rules", "users"
+  add_foreign_key "gmail_users", "organizations"
+  add_foreign_key "gmail_users", "users"
   add_foreign_key "users", "organizations"
 end
