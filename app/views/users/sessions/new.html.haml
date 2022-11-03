@@ -1,78 +1,82 @@
-%div
-  %section
-    .bg-gradient-to-b.from-gray-900.via-purple-900.to-violet-600
-      .box-content.h-96.py-4.md:py-16.flex.justify-center
-        %div
-          = inline_svg_tag "logo.svg", class: "w-52 h-48"
-          .text-center.text-gray-100.text-xl.-mt-6 Enough Email
-
-    .container.mx-auto.px-6.md:px-12.xl:px-32
-      .text-center.text-gray-800.block.rounded-lg.shadow-lg.px-6.py-12.md:py-16.md:px-12.-mt-48.z-10{:style => "background: hsla(0, 0%, 100%, 0.7); backdrop-filter: blur(30px);"}
-        %h1.text-4xl.md:text-6xl.xl:text-7xl.font-bold.tracking-tight.mb-12
-          Protect your organization
-          %br/
-          from
+.flex.px-12.py-2.items-end
+  = inline_svg_tag "logo.svg", class: "w-12 h-10"
+  .text-indigo-800.text-xl.align-baseline.px-1 Enough Email
+%section.container.pt-10.lg:pt-32.pb-32.lg:pb-40.mx-auto.px-6.md:px-12
+  .relative.flex.flex-wrap
+    .hidden.lg:flex.absolute.items-center{:style => "left: 425px; top: -115px;",  class: "w-3/5"}
+      = inline_svg_tag "illustrations/serenity.svg", title: "A happy person meditating over boxes with email text", class: "w-full xl:mt-0 mt-32"
+    .w-full.relative{:class => "lg:w-1/2"}
+      .mx-auto.lg:mx-0.max-w-lg.text-center.lg:text-left
+        %h1.text-3xl.sm:text-4xl.font-bold.tracking-tight.text-gray-900{:class => "!leading-snug"}
+          Protect your organization from
           %span.text-indigo-600 unwanted email
-
-        .flex.justify-center
-          = button_to user_google_oauth2_omniauth_authorize_path, method: :post, :data => {turbo: "false"}, class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out" do
+        .mt-3.text-xl.md:text-2xl.text-gray-700
+          Because everyone has got more important things to do than sifting through unwanted email.
+      .lg:hidden.mx-auto.mt-4{:style => "max-width: 800px;"}
+        = inline_svg_tag "illustrations/serenity.svg", title: "A happy person meditating over boxes with email text"
+      .mt-6.lg:mt-12
+        .text-center.lg:text-left.font-semibold.text-gray-900.md:text-lg
+          Start creating email filters for your entire organization
+        .mt-4.flex.justify-center.lg:justify-start
+          = button_to user_google_oauth2_omniauth_authorize_path, method: :post, :data => {turbo: "false"}, class: "inline-block px-7 py-5 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-700 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-800 hover:shadow-lg focus:bg-indigo-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-900 active:shadow-lg transition duration-150 ease-in-out" do
             .flex
               %svg.mr-2.-ml-1.w-4.h-4{"aria-hidden" => "true", "data-icon" => "google", "data-prefix" => "fab", :focusable => "false", :role => "img", :viewbox => "0 0 488 512", :xmlns => "http://www.w3.org/2000/svg"}
                 %path{:d => "M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z", :fill => "currentColor"}
               Sign in with Google
+%section.bg-gray-100
+  .container.pt-24.px-6.mx-auto.border-t-2
+    .pb-32.text-gray-800.text-center
+      %h2.text-3xl.font-bold.mb-20 Why Enough Email?
+      .grid.md:gap-x-12.md:grid-cols-2.lg:grid-cols-4
+        .mb-14.lg:mb-0
+          .rounded-lg.shadow-lg.h-full.block.bg-white
+            .flex.justify-center
+              .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
+                = inline_svg_tag "fa-icons/solid/arrow-trend-up.svg", class: "w-8 h-8 fill-white"
+            .p-6
+              %h5.text-lg.font-semibold.mb-4 Improves productivity
+              %p
+                Keep everyones inbox free from useless email. Wave goodbye to cold sellers, unwanted recuiters and services that you can't unsubscribe from, no matter how hard you try.
+        .mb-14.lg:mb-0
+          .rounded-lg.shadow-lg.h-full.block.bg-white
+            .flex.justify-center
+              .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
+                = inline_svg_tag "fa-icons/solid/eye-slash.svg", class: "w-8 h-8 text-white fill-current"
+            .p-6
+              %h5.text-lg.font-semibold.mb-4 No peeking
+              %p
+                Enough Email does not need access to anyone's inbox. It works via Google Workplace configuration, so there are no additional security concerns.
+        .mb-14.lg:mb-0
+          .rounded-lg.shadow-lg.h-full.block.bg-white
+            .flex.justify-center
+              .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
+                = inline_svg_tag "fa-icons/solid/paper-plane.svg", class: "w-8 h-8 text-white fill-current"
+            .p-6
+              %h5.text-lg.font-semibold.mb-4 Extremely simple UI
+              %p
+                No software to install, no website to log in to. Forward an unwanted email sample to one of our filter inboxes to set up filters that protect <b>everyone</b> in your organisation.
 
-    .container.my-24.px-6.mx-auto
-      %section.mb-32.text-gray-800.text-center
-        %h2.text-3xl.font-bold.mb-20 Why Enough Email?
-        .grid.md:gap-x-12.md:grid-cols-2.lg:grid-cols-4
-          .mb-14.lg:mb-0
-            .rounded-lg.shadow-lg.h-full.block.bg-white
-              .flex.justify-center
-                .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
-                  = inline_svg_tag "fa-icons/solid/arrow-trend-up.svg", class: "w-8 h-8 fill-white"
-              .p-6
-                %h5.text-lg.font-semibold.mb-4 Improves productivity
-                %p
-                  Keep everyones inbox free from useless email. Wave goodbye to cold sellers, unwanted recuiters and services that you can't unsubscribe from, no matter how hard you try.
-          .mb-14.lg:mb-0
-            .rounded-lg.shadow-lg.h-full.block.bg-white
-              .flex.justify-center
-                .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
-                  = inline_svg_tag "fa-icons/solid/eye-slash.svg", class: "w-8 h-8 text-white fill-current"
-              .p-6
-                %h5.text-lg.font-semibold.mb-4 No peeking
-                %p
-                  Enough Email does not need access to anyone's inbox. It works via Google Workplace configuration, so there are no additional security concerns.
-          .mb-14.lg:mb-0
-            .rounded-lg.shadow-lg.h-full.block.bg-white
-              .flex.justify-center
-                .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
-                  = inline_svg_tag "fa-icons/solid/paper-plane.svg", class: "w-8 h-8 text-white fill-current"
-              .p-6
-                %h5.text-lg.font-semibold.mb-4 Extremely simple UI
-                %p
-                  No software to install, no website to log in to. Forward an unwanted email sample to one of our filter inboxes to set up filters that protect <b>everyone</b> in your organisation.
+        .mb-14.lg:mb-0
+          .rounded-lg.shadow-lg.h-full.block.bg-white
+            .flex.justify-center
+              .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
+                = inline_svg_tag "fa-icons/solid/envelope-circle-check.svg", class: "w-8 h-8 text-white fill-current"
+            .p-6
+              %h5.text-lg.font-semibold.mb-4 Keep your setup
+              %p
+                Enough Email works on your existing Google Workplace setup. Everyone can keep using their favourite email client. It's a zero-friction solution.
+%section.pb-40
+  %h3.text-4xl.font-bold.text-center.py-14.text-gray-800 Who is it for?
 
-          .mb-14.lg:mb-0
-            .rounded-lg.shadow-lg.h-full.block.bg-white
-              .flex.justify-center
-                .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
-                  = inline_svg_tag "fa-icons/solid/envelope-circle-check.svg", class: "w-8 h-8 text-white fill-current"
-              .p-6
-                %h5.text-lg.font-semibold.mb-4 Keep your setup
-                %p
-                  Enough Email works on your existing Google Workplace setup. Everyone can keep using their favourite email client. It's a zero-friction solution.
-  %section.bg-indigo-300.pb-40
-    %h3.text-4xl.font-bold.text-center.py-14.text-gray-800 Who is it for?
+  .max-w-screen-md.mx-auto.px-6.text-center
+    Enough Email is for leaders who know the true cost of cumulative distractions and strive to protect their organization from them.
 
-    .max-w-screen-md.mx-auto.px-6.text-center
-      Enough Email is for leaders who know the true cost of cumulative distractions and strive to protect their organization from them.
-
-    = inline_svg_tag "fa-icons/solid/people-roof.svg", class: "w-48 h-48 fill-gray-800 mx-auto my-8"
-
-    .flex.justify-center
-      = button_to user_google_oauth2_omniauth_authorize_path, method: :post, :data => {turbo: "false"}, class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out" do
-        .flex
-          %svg.mr-2.-ml-1.w-4.h-4{"aria-hidden" => "true", "data-icon" => "google", "data-prefix" => "fab", :focusable => "false", :role => "img", :viewbox => "0 0 488 512", :xmlns => "http://www.w3.org/2000/svg"}
-            %path{:d => "M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z", :fill => "currentColor"}
-          Sign in with Google
+  = inline_svg_tag "illustrations/leader.svg", class: "w-48 fill-gray-800 mx-auto my-8"
+  .text-center.w-full.font-semibold.text-gray-900.md:text-lg.py-2
+    Ready to declutter everyone's inbox?
+  .flex.justify-center
+    = button_to user_google_oauth2_omniauth_authorize_path, method: :post, :data => {turbo: "false"}, class: "inline-block px-7 py-5 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out" do
+      .flex
+        %svg.mr-2.-ml-1.w-4.h-4{"aria-hidden" => "true", "data-icon" => "google", "data-prefix" => "fab", :focusable => "false", :role => "img", :viewbox => "0 0 488 512", :xmlns => "http://www.w3.org/2000/svg"}
+          %path{:d => "M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z", :fill => "currentColor"}
+        Sign in with Google
