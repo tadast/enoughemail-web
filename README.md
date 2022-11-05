@@ -25,17 +25,17 @@
 ## Post shipping to chattermill
 
 - [ ] First to set up org is admin, admin confirms moderators
-- [ ] audit trail to see who signed up, changed filters
-- [ ] Recognize user aliases when receiving email
 
 ## 2nd client
+- [ ] Recognize user aliases when receiving email
+- [ ] audit trail to see who signed up, changed filters
 - [ ] Respond to bounced emails
 - [ ] Moderators/admins can invite other moderators/admins
 - [ ] Add custom labels to filtered emails i.e. block-domain-for-everyone+recruiters@.. would add a 'recruiters' label
 - [ ] (bug) iOS landing page covers the Hero section
 - [ ] Pre-made lists that can be applied
 - [ ] Display a list of admins/moderators in the org
-- [ ] Display a list of Gmail users in the org
+- [x] Import a list of Gmail users in the org to be used in billing
 - [ ] When a new user joins the Google Workspace, apply all pre-existing Filter Rules
 - [ ] Email cheat-sheet w/ pdf attached when a new user onboards
 - [ ] when removing rules from UI, allow grace period i.e. mark for removal -> undo
@@ -64,7 +64,7 @@
 
 Common [email domains list source](https://gist.github.com/ammarshah/f5c2624d767f91a7cbdc4e54db8dd0bf).
 
-[SVG illustrations](https://freesvgillustration.com)
+[SVG illustrations](https://freesvgillustration.com) [and another one](https://undraw.co/search)
 
 ## Setup video
 
