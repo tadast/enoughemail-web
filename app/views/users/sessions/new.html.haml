@@ -11,18 +11,19 @@
           Protect your organization from
           %span.text-indigo-600 unwanted email
         .mt-3.text-xl.md:text-2xl.text-gray-700
-          Because everyone has got more important things to do than sifting through unwanted email.
+          Wave goodbye to cold sellers, unwanted recuiters and services that you can't unsubscribe from, no matter how hard you try.
       .lg:hidden.mx-auto.mt-4{:style => "max-width: 800px;"}
         = inline_svg_tag "illustrations/serenity.svg", title: "A happy person meditating over boxes with email text"
       .mt-6.lg:mt-12
         .text-center.lg:text-left.font-semibold.text-gray-900.md:text-lg
           Start creating email filters for your entire organization
-        .mt-4.flex.justify-center.lg:justify-start
-          = button_to user_google_oauth2_omniauth_authorize_path, method: :post, :data => {turbo: "false"}, class: "inline-block px-7 py-5 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-700 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-800 hover:shadow-lg focus:bg-indigo-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-900 active:shadow-lg transition duration-150 ease-in-out" do
+        .mt-4.flex.justify-center.lg:justify-start.mb-1
+          = button_to user_google_oauth2_omniauth_authorize_path, method: :post, :data => {turbo: "false"}, class: "inline-block px-7 py-5 mr-0 md:mr-2 bg-indigo-700 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-800 hover:shadow-lg focus:bg-indigo-800 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-900 active:shadow-lg transition duration-150 ease-in-out" do
             .flex
               %svg.mr-2.-ml-1.w-4.h-4{"aria-hidden" => "true", "data-icon" => "google", "data-prefix" => "fab", :focusable => "false", :role => "img", :viewbox => "0 0 488 512", :xmlns => "http://www.w3.org/2000/svg"}
                 %path{:d => "M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z", :fill => "currentColor"}
               Sign in with Google
+        .text-xs.italic.text-gray-600.text-center.lg:text-left *Google Workspace Admin role is required for initial setup
 %section.bg-gray-100
   .container.pt-24.px-6.mx-auto.border-t-2
     .pb-32.text-gray-800.text-center
@@ -32,20 +33,11 @@
           .rounded-lg.shadow-lg.h-full.block.bg-white
             .flex.justify-center
               .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
-                = inline_svg_tag "fa-icons/solid/arrow-trend-up.svg", class: "w-8 h-8 fill-white"
-            .p-6
-              %h5.text-lg.font-semibold.mb-4 Improves productivity
-              %p
-                Keep everyones inbox free from useless email. Wave goodbye to cold sellers, unwanted recuiters and services that you can't unsubscribe from, no matter how hard you try.
-        .mb-14.lg:mb-0
-          .rounded-lg.shadow-lg.h-full.block.bg-white
-            .flex.justify-center
-              .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
                 = inline_svg_tag "fa-icons/solid/eye-slash.svg", class: "w-8 h-8 text-white fill-current"
             .p-6
               %h5.text-lg.font-semibold.mb-4 No peeking
               %p
-                Enough Email does not need access to anyone's inbox. It works via Google Workplace configuration, so there are no additional security concerns.
+                Enough Email works by creating Gmail filters for your entire organization. This means it does not need access to anyone's inbox.
         .mb-14.lg:mb-0
           .rounded-lg.shadow-lg.h-full.block.bg-white
             .flex.justify-center
@@ -64,12 +56,50 @@
             .p-6
               %h5.text-lg.font-semibold.mb-4 Keep your setup
               %p
-                Enough Email works on your existing Google Workplace setup. Everyone can keep using their favourite email client. It's a zero-friction solution.
-%section.pb-40
-  %h3.text-4xl.font-bold.text-center.py-14.text-gray-800 Who is it for?
+                Everyone can keep using their favourite email app - Gmail, Outlook, Mail for iPhone, Superhuman - you name it.
+        .mb-14.lg:mb-0
+          .rounded-lg.shadow-lg.h-full.block.bg-white
+            .flex.justify-center
+              .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
+                = inline_svg_tag "fa-icons/solid/hand-point-up.svg", class: "w-8 h-8 fill-white"
+            .p-6
+              %h5.text-lg.font-semibold.mb-4 One-time setup
+              %p
+                It takes about 15mins for your organization IT admin to set up Enough Email. Then, selected colleagues can start creating filters for everyone directly from their inbox.
+%section
+  .px-6.max-w-screen-md.mx-auto
+    %h2.text-3xl.font-bold.mt-20.mb-10 How it works
+    %ol.relative.border-l.border-gray-200.dark:border-gray-700
+      %li.mb-10.ml-4
+        .absolute.w-3.h-3.bg-gray-200.rounded-full.border.border-white.dark:border-gray-900.dark:bg-gray-700{:class => "mt-1.5 -left-1.5"}
+        %time.mb-1.text-sm.font-normal.leading-none.text-gray-400.dark:text-gray-500 Step 1
+        %h3.text-lg.font-semibold.text-gray-900.dark:text-white Admin setup
+        %p.mb-4.text-base.font-normal.text-gray-500.dark:text-gray-400
+          Someone from your organization who has admin rights on your Google Workplace will need to sign in to Enough Email and follow instructions to set things up. This will take around 15mins.
+      %li.mb-10.ml-4
+        .absolute.w-3.h-3.bg-gray-200.rounded-full.border.border-white.dark:border-gray-900.dark:bg-gray-700{:class => "mt-1.5 -left-1.5"}
+        %time.mb-1.text-sm.font-normal.leading-none.text-gray-400.dark:text-gray-500 Step 2
+        %h3.text-lg.font-semibold.text-gray-900.dark:text-white Role setup
+        %p.text-base.font-normal.text-gray-500.dark:text-gray-400
+          Select trusted colleagues who will have permissions to create organization-wide filters. It could be just one person, or everyone at your organization - it's up to you. They will receive an onboarding instruction email.
+      %li.mb-10.ml-4
+        .absolute.w-3.h-3.bg-gray-200.rounded-full.border.border-white.dark:border-gray-900.dark:bg-gray-700{:class => "mt-1.5 -left-1.5"}
+        %time.mb-1.text-sm.font-normal.leading-none.text-gray-400.dark:text-gray-500 Step 3
+        %h3.text-lg.font-semibold.text-gray-900.dark:text-white Filter
+        %p.text-base.font-normal.text-gray-500.dark:text-gray-400
+          Whenever a trusted colleague receives an unwanted email, they can forward it to one of the predefined email addresses to block the sender or sender's entire domain for your entire organization - going forward these emails will be automatically archived
+      %li.ml-4
+        .absolute.w-3.h-3.bg-gray-200.rounded-full.border.border-white.dark:border-gray-900.dark:bg-gray-700{:class => "mt-1.5 -left-1.5"}
+        %time.mb-1.text-sm.font-normal.leading-none.text-gray-400.dark:text-gray-500 Step 4
+        %h3.text-lg.font-semibold.text-gray-900.dark:text-white Review
+        %p.text-base.font-normal.text-gray-500.dark:text-gray-400
+          You can review who and when created new filters by logging in to Enough Email any time.
 
-  .max-w-screen-md.mx-auto.px-6.text-center
-    Enough Email is for leaders who know the true cost of cumulative distractions and strive to protect their organization from them.
+%section.pb-40
+  -# %h3.text-4xl.font-bold.text-center.py-14.text-gray-800 Who is it for?
+
+  -# .max-w-screen-md.mx-auto.px-6.text-center
+  -#   Enough Email is for leaders who know the true cost of cumulative distractions and strive to protect their organization from them.
 
   = inline_svg_tag "illustrations/leader.svg", class: "w-48 fill-gray-800 mx-auto my-8"
   .text-center.w-full.font-semibold.text-gray-900.md:text-lg.py-2
