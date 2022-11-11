@@ -1,21 +1,43 @@
-.p-6.space-y-3
-  %h1.text-3xl= @organization.domain
+.container.mx-auto.p-6
+  %h1.text-3xl.my-6 Organization settings
 
-  %p
-    %b Billing email:
-    = @organization.billing_email
+  .grid.grid-cols-1.sm:grid-cols-2.md:grid-cols-3.gap-4
+    .flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md.hover:bg-gray-100
+      %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900.dark:text-white Organization domain
+      %p.font-normal.text-gray-700.dark:text-gray-400 Internet address that is a part of the email address of everyone in your organization
+      .flex-grow.flex.items-end.py-2.text-4xl.text-indigo-900= @organization.domain
 
-  %p
-    %b Google domain-wide delegation credentials:
-    = @organization.google_domain_wide_delegation_credentials.present? ? "Uploaded" : "Not present"
+    .flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md.hover:bg-gray-100
+      %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900.dark:text-white Users who can create filters
+      %p.font-normal.text-gray-700.dark:text-gray-400 The number of users who on enoughemail.com account who can create filters
+      .flex-grow.flex.items-end.py-2.text-4xl.text-indigo-900= @organization.users.count
 
-  - if @organization.gmail_users.any?
-    %p
-      %b Users on GMail:
-      = @organization.gmail_users.count
+    - if @organization.gmail_users.any?
+      .flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md.hover:bg-gray-100
+        %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900.dark:text-white Users in organization
+        %p.font-normal.text-gray-700.dark:text-gray-400 The number of users in your organization
+        .flex-grow.flex.items-end.py-2.text-4xl.text-indigo-900= @organization.gmail_users.count
 
+    .flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md.hover:bg-gray-100
+      %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900.dark:text-white Filter rules
+      %p.font-normal.text-gray-700.dark:text-gray-400 The number of rules created
+      .flex-grow.flex.items-end.py-2.text-4xl.text-indigo-900= @organization.filter_rules.count
 
-  .flex.space-x-3
-    = turbo_frame_tag "google-workspace-test" do
-      = button_to "Test Google Workplace connection", organization_credentials_tests_path, method: :post, class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out"
-    = link_to 'Edit', edit_organization_path(@organization), class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-gray-200 text-gray-700 font-medium text-sm leading-snug rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+    .flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md.hover:bg-gray-100
+      %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900.dark:text-white Google Workplace connection
+
+      - if @organization.google_domain_wide_delegation_credentials.present?
+        .font-normal.text-gray-700.dark:text-gray-400.flex
+          = inline_svg_tag "fa-icons/solid/circle-check.svg", class: "h-6 w-6 mr-2 fill-indigo-700"
+          Credentials uploaded
+        .flex-grow.flex.items-end.mt-4
+          = turbo_frame_tag "google-workspace-test" do
+            = button_to "Test connection", organization_credentials_tests_path, method: :post, class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-gray-500 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-gray-600 hover:shadow-lg focus:bg-gray-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-700 active:shadow-lg transition duration-150 ease-in-out"
+      - else
+        .font-normal.text-gray-700.dark:text-gray-400.flex
+          = inline_svg_tag "fa-icons/solid/square.svg", class: "h-6 w-6 mr-2 fill-red-700"
+          Credentials not uploaded
+        .flex-grow.flex.items-end.mt-4
+          = link_to 'Upload', edit_organization_path(@organization), class: "w-full text-center inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-gray-200 text-gray-700 font-medium text-sm leading-snug rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+
+  .my-8= link_to 'Edit organization settings', edit_organization_path(@organization), class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out"
