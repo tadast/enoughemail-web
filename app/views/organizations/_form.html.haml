@@ -1,4 +1,4 @@
-.flex.mx-6.max-w-screen-md
+.px-2.flex
   = form_for @organization, html: { class: "w-full" } do |f|
     - if @organization.errors.any?
       #error_explanation.bg-red-100.rounded-lg.py-5.px-6.mb-4.text-base.text-red-700.mb-3
@@ -19,7 +19,7 @@
 
     .my-6.flex-col
       = f.label :admin_email, class: "inline-block text-gray-700 mb-2"
-      = f.text_field :admin_email, value: @organization.admin_email || "admin@#{@organization.domain}",  class: "block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+      = f.text_field :admin_email, value: @organization.admin_email || current_user.email,  class: "block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
       %small.text-xs.text-gray-600 An email of a user who has got access to listing all users set up for the organization, usually a workspace admin. Only organisation members that are visible to this user will have the email filters applied.
 
     .my-6.flex-col
@@ -30,26 +30,47 @@
 
         %p It requires a very minimal set of permissions, ensuring that Enough Email does not have access to any of the email contents inside your organization.
 
-        %p
+        %p.font-bold
           Follow these instructions to
           = link_to "set up a Service Account", "https://developers.google.com/workspace/guides/create-credentials#service-account", taget: :blank, class: "underline text-indigo-700"
           , please make sure to
           %b enable domain-wide delegation.
 
-        %p The following permissions are required:
+        %h3.text-lg Mandatory permissions
 
-        %table.min-w-full.border
-          %tr.bg-white.border-b
-            %th.font-medium.text-gray-900.px-6.py-4.text-left Permission scope
-            %th.font-medium.text-gray-900.px-6.py-4.text-left Explanation
-          %tr
-            %td.text-gray-900.px-6.py-4.text-left
-              %pre.font-monospace.border.rounded.bg-gray-100.px-2.block.py-1 https://www.googleapis.com/auth/admin.directory.user.readonly
-            %td.text-gray-900.px-6.py-4.text-left Allows Enough Email to see active Google Workspace users so that it knows whom to apply the email filter rules
-          %tr
-            %td.text-gray-900.px-6.py-4.text-left
-              %pre.font-monospace.border.rounded.bg-gray-100.px-2.block.py-1 https://www.googleapis.com/auth/gmail.settings.basic
-            %td.text-gray-900.px-6.py-4.text-left Allows Enough Email to add new email filter rules for users in your organization
+        %p
+          The following permissions are required. You can read more about scopes in
+          = link_to "Google's documentation.", "https://developers.google.com/gmail/api/auth/scopes", target: :_blank
+        .overflow-auto
+          %table.min-w-full.max-w-full.border
+            %tr.bg-white.border-b
+              %th.font-medium.text-gray-900.px-6.py-4.text-left Permission scope
+              %th.font-medium.text-gray-900.px-6.py-4.text-left Explanation
+            %tr
+              %td.text-gray-900.px-6.py-4.text-left
+                %pre.py-1.overflow-x-scroll.font-monospace.border.rounded.bg-gray-100.px-2.block.py-1 https://www.googleapis.com/auth/admin.directory.user.readonly
+              %td.text-gray-900.px-6.py-4.text-left Allows Enough Email to see active Google Workspace users so that it knows whom to apply the email filter rules to
+            %tr
+              %td.text-gray-900.px-6.py-4.text-left
+                %pre.py-1.overflow-x-scroll.font-monospace.border.rounded.bg-gray-100.px-2.block.py-1 https://www.googleapis.com/auth/gmail.settings.basic
+              %td.text-gray-900.px-6.py-4.text-left Allows Enough Email to add new email filter rules for users in your organization
+
+        %h3.text-lg Optional permissions
+
+        %p Add the following scopes if you are OK with enoughemail.com seeing your email subjects and headers (email body will remain invisible). Optional permissions will allow enoughemail.com to tag block emails with a Gmail label and calculate stats of how many emails are being filtered. This feature will be implemented in future.
+        .overflow-auto
+          %table.min-w-full.max-w-full.border
+            %tr.bg-white.border-b
+              %th.font-medium.text-gray-900.px-6.py-4.text-left Permission scope
+              %th.font-medium.text-gray-900.px-6.py-4.text-left Explanation
+            %tr
+              %td.text-gray-900.px-6.py-4.text-left
+                %pre.py-1.overflow-x-scroll.font-monospace.border.rounded.bg-gray-100.px-2.block.py-1 https://www.googleapis.com/auth/gmail.labels
+              %td.text-gray-900.px-6.py-4.text-left Allows Enough Email to create labels so that filtered emails can be tagged.
+            %tr
+              %td.text-gray-900.px-6.py-4.text-left
+                %pre.py-1.overflow-x-scroll.font-monospace.border.rounded.bg-gray-100.px-2.block.py-1 https://www.googleapis.com/auth/gmail.metadata
+              %td.text-gray-900.px-6.py-4.text-left Allows Enough Email to look at the email headers and labels, so that it can generate stats of filtered emails.
 
         %p Once set up, paste the credentials JSON contents into the field above. Credentials look like this:
 
