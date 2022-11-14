@@ -13,7 +13,7 @@ class OrganizationCredentialsTestsController < AuthenticatedController
     # This might not be required as 'service' will fail if authorized scopes do not match Google::Service::SCOPES
     if users
       error_messages[:gmail_basic_settings_access] = check_for_errors do
-        service.list_filters(user_email: users.last.emails.first["address"])
+        service.list_filters(user_email: users.last.primary_email)
       end
     end
 
