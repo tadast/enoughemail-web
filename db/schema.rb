@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_02_171704) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_15_235808) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -79,6 +79,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_171704) do
     t.index ["user_id"], name: "index_filter_rules_on_user_id"
   end
 
+  create_table "gmail_user_filter_rules", force: :cascade do |t|
+    t.bigint "gmail_user_id", null: false
+    t.bigint "filter_rule_id", null: false
+    t.text "google_filter_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["filter_rule_id"], name: "index_gmail_user_filter_rules_on_filter_rule_id"
+    t.index ["gmail_user_id", "filter_rule_id", "google_filter_id"], name: "index_gmail_user_filer_rule_uniqueness", unique: true
+    t.index ["gmail_user_id"], name: "index_gmail_user_filter_rules_on_gmail_user_id"
+  end
+
   create_table "gmail_users", force: :cascade do |t|
     t.string "email"
     t.bigint "organization_id", null: false
@@ -119,6 +130,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_171704) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "filter_rules", "organizations"
   add_foreign_key "filter_rules", "users"
+  add_foreign_key "gmail_user_filter_rules", "filter_rules"
+  add_foreign_key "gmail_user_filter_rules", "gmail_users"
   add_foreign_key "gmail_users", "organizations"
   add_foreign_key "gmail_users", "users"
   add_foreign_key "users", "organizations"

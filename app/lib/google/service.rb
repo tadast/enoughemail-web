@@ -17,14 +17,9 @@ class Google::Service
   end
 
   def users(as_seen_by: @org_admin_email, service: nil, page_token: nil)
-    if service.nil?
-      service = Google::Apis::AdminDirectoryV1::DirectoryService.new
-      # service.client_options.application_name = APPLICATION_NAME
-      service.authorization = service_authorization(as: as_seen_by)
-      # List the first 10 users in the domain
-    end
+    service ||= directory_service(as: as_seen_by)
 
-    # return super administrators: query: "isAdmin=true" / delegated admins query: "isDelegatedAdmin=true"
+    # to return super administrators: query: "isAdmin=true" / delegated admins query: "isDelegatedAdmin=true"
     response = service.list_users(customer: "my_customer",
       max_results: 100,
       order_by: "email",
@@ -39,34 +34,15 @@ class Google::Service
     end
   end
 
+  def get_user(user_email:, as_seen_by: @org_admin_email)
+    directory_service(as: as_seen_by).get_user(user_email)
+  end
+
   def list_filters(user_email:)
     gmail = Google::Apis::GmailV1::GmailService.new
     gmail.authorization = service_authorization(as: user_email)
     # TODO: is there any pagination?
     gmail.list_user_setting_filters("me").filter
-  end
-
-  def delete_filter_for_everyone(email_pattern:)
-    users.each do |user|
-      email = user.primary_email
-
-      delete_filter_for(user_email: email, email_pattern: email_pattern)
-    end
-  end
-
-  def delete_filter_for(user_email:, email_pattern:)
-    filters = list_filters(user_email: user_email)
-
-    relevant_filters = filters.select do |filter|
-      filter.criteria.from.to_s.downcase == email_pattern &&
-        filter.action.remove_label_ids.sort == FILTER_LABELS_TO_REMOVE
-    end
-
-    gmail = gmail_service(as: user_email)
-
-    relevant_filters.each do |filter|
-      gmail.delete_user_setting_filter("me", filter.id)
-    end
   end
 
   def everyones_filters
@@ -80,35 +56,69 @@ class Google::Service
     end
   end
 
-  def create_filters_for_everyone(email_pattern:)
-    users.map do |user|
-      email = user.primary_email
+  # def delete_filter_for_everyone(email_pattern:)
+  #   users.each do |user|
+  #     email = user.primary_email
 
-      create_filter_for(user_email: email, email_pattern: email_pattern)
+  #     delete_filter_for(user_email: email, email_pattern: email_pattern)
+  #   end
+  # end
+
+  def delete_filter_for(user_email:, email_pattern:)
+    relevant_filters = find_filters_for(user_email: user_email, email_pattern: email_pattern)
+
+    gmail = gmail_service(as: user_email)
+
+    relevant_filters.each do |filter|
+      gmail.delete_user_setting_filter("me", filter.id)
+    end
+  end
+
+  def find_filters_for(user_email:, email_pattern:)
+    filters = list_filters(user_email: user_email)
+
+    filters.select do |filter|
+      filter.criteria.from.to_s.downcase == email_pattern &&
+        filter.action.remove_label_ids.sort == FILTER_LABELS_TO_REMOVE
     end
   end
 
   def create_filter_for(user_email:, email_pattern:)
     gmail = gmail_service(as: user_email)
 
-    gmail.create_user_setting_filter(
-      "me",
-      Google::Apis::GmailV1::Filter.new(
-        action: Google::Apis::GmailV1::FilterAction.new(remove_label_ids: ["UNREAD", "IMPORTANT", "INBOX"]),
-        criteria: Google::Apis::GmailV1::FilterCriteria.new(from: email_pattern)
-      ),
-      fields: nil,
-      quota_user: nil,
-      options: nil
-    )
+    begin
+      gmail.create_user_setting_filter(
+        "me",
+        Google::Apis::GmailV1::Filter.new(
+          action: Google::Apis::GmailV1::FilterAction.new(remove_label_ids: ["UNREAD", "IMPORTANT", "INBOX"]),
+          criteria: Google::Apis::GmailV1::FilterCriteria.new(from: email_pattern)
+        ),
+        fields: nil,
+        quota_user: nil,
+        options: nil
+      )
+    rescue Google::Apis::ClientError => e
+      raise unless e.message == "failedPrecondition: Filter already exists"
+
+      Honeybadger.notify(e.message)
+
+      find_filters_for(user_email: user_email, email_pattern: email_pattern).first
+    end
   end
 
   private
 
-  def gmail_service(as: user_email)
+  def gmail_service(as:)
     gmail = Google::Apis::GmailV1::GmailService.new
     gmail.authorization = service_authorization(as: as)
 
     gmail
+  end
+
+  def directory_service(as:)
+    admin_directory_service = Google::Apis::AdminDirectoryV1::DirectoryService.new
+    admin_directory_service.authorization = service_authorization(as: as)
+
+    admin_directory_service
   end
 end

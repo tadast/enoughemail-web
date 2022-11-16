@@ -1,6 +1,8 @@
 class GmailUser < ApplicationRecord
   belongs_to :organization
   belongs_to :user, optional: true
+  has_many :gmail_user_filter_rules, dependent: :destroy
+  has_many :filter_rules, through: :gmail_user_filter_rules
 
   encrypts :email, deterministic: true, downcase: true
   encrypts :full_name
@@ -18,5 +20,16 @@ class GmailUser < ApplicationRecord
     }
 
     gmail_user
+  end
+
+  def with_associations_for_new_record(organization)
+    return self if persisted?
+
+    update!(
+      organization: organization,
+      user: organization.users.find_by(email: email)
+    )
+
+    self
   end
 end
