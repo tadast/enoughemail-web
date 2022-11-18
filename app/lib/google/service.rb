@@ -67,9 +67,22 @@ class Google::Service
   def delete_filter_for(user_email:, email_pattern:)
     relevant_filter = find_filter_for(user_email: user_email, email_pattern: email_pattern)
 
-    gmail = gmail_service(as: user_email)
+    delete_filter(relevant_filter.id, as: user_email)
+  end
 
-    gmail.delete_user_setting_filter("me", relevant_filter.id)
+  def delete_filter(filter_id, as:)
+    gmail = gmail_service(as: as)
+
+    begin
+      gmail.delete_user_setting_filter("me", filter_id)
+    rescue Google::Apis::ClientError => e
+      if e.status_code == 404
+        Rails.logger.warn("Gmail filter '#{filter_id}' not found for #{as}, skipping")
+
+        return
+      end
+      raise
+    end
   end
 
   def find_filter_for(user_email:, email_pattern:)
@@ -88,7 +101,7 @@ class Google::Service
       gmail.create_user_setting_filter(
         "me",
         Google::Apis::GmailV1::Filter.new(
-          action: Google::Apis::GmailV1::FilterAction.new(remove_label_ids: ["UNREAD", "IMPORTANT", "INBOX"]),
+          action: Google::Apis::GmailV1::FilterAction.new(remove_label_ids: FILTER_LABELS_TO_REMOVE),
           criteria: Google::Apis::GmailV1::FilterCriteria.new(from: email_pattern)
         ),
         fields: nil,
@@ -107,10 +120,13 @@ class Google::Service
   private
 
   def gmail_service(as:)
-    gmail = Google::Apis::GmailV1::GmailService.new
-    gmail.authorization = service_authorization(as: as)
+    @gmail_service ||= {}
+    @gmail_service[as] = begin
+      gmail = Google::Apis::GmailV1::GmailService.new
+      gmail.authorization = service_authorization(as: as)
 
-    gmail
+      gmail
+    end
   end
 
   def directory_service(as:)

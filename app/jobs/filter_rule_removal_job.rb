@@ -3,10 +3,9 @@ class FilterRuleRemovalJob < ApplicationJob
     raise "Rule not owned" unless user.organization_id == filter_rule.organization_id
 
     service = user.google_service
-    if filter_rule.for_everyone?
-      service.delete_filter_for_everyone(email_pattern: filter_rule.email_pattern)
-    else
-      service.delete_filter_for(user_email: filter_rule.user.email, email_pattern: filter_rule.email_pattern)
+
+    filter_rule.gmail_user_filter_rules.each do |gufr|
+      service.delete_filter(gufr.google_filter_id, as: gufr.gmail_user.email)
     end
 
     filter_rule.destroy
