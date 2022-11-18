@@ -65,19 +65,17 @@ class Google::Service
   # end
 
   def delete_filter_for(user_email:, email_pattern:)
-    relevant_filters = find_filters_for(user_email: user_email, email_pattern: email_pattern)
+    relevant_filter = find_filter_for(user_email: user_email, email_pattern: email_pattern)
 
     gmail = gmail_service(as: user_email)
 
-    relevant_filters.each do |filter|
-      gmail.delete_user_setting_filter("me", filter.id)
-    end
+    gmail.delete_user_setting_filter("me", relevant_filter.id)
   end
 
-  def find_filters_for(user_email:, email_pattern:)
+  def find_filter_for(user_email:, email_pattern:)
     filters = list_filters(user_email: user_email)
 
-    filters.select do |filter|
+    filters.find do |filter|
       filter.criteria.from.to_s.downcase == email_pattern &&
         filter.action.remove_label_ids.sort == FILTER_LABELS_TO_REMOVE
     end
@@ -102,7 +100,7 @@ class Google::Service
 
       Honeybadger.notify(e.message)
 
-      find_filters_for(user_email: user_email, email_pattern: email_pattern).first
+      find_filter_for(user_email: user_email, email_pattern: email_pattern)
     end
   end
 
