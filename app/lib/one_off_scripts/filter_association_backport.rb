@@ -1,4 +1,4 @@
-class FilterAssociationBackport
+class OneOffScripts::FilterAssociationBackport
   def run
     Organization.all.includes(filter_rules: {gmail_user_filter_rules: :gmail_user}).each do |org|
       puts "============"
