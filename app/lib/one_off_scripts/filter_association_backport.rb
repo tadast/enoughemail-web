@@ -8,7 +8,7 @@ class OneOffScripts::FilterAssociationBackport
       org.filter_rules.each do |filter_rule|
         puts "\t #{filter_rule.email_pattern} #{filter_rule.scope}"
 
-        users = if filter_rule.scope == :for_everyone
+        users = if filter_rule.for_everyone?
           service.users
         else
           [service.get_user(user_email: filter_rule.user.email)]

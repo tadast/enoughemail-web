@@ -18,7 +18,7 @@ class FilterRule < ApplicationRecord
   }
 
   def apply_to_google!
-    if scope.to_sym == :for_everyone
+    if for_everyone?
       apply_to_everyone_on_gmail
     else
       service = user.service
