@@ -1,0 +1,2 @@
+class FilterRuleTemplate < ApplicationRecord
+end

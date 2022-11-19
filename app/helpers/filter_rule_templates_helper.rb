@@ -1,0 +1,2 @@
+module FilterRuleTemplatesHelper
+end

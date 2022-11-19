@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :filter_rule_templates, except: [:destroy]
   root "users/sessions#new"
 
   resources :organizations, except: [:index, :destroy] do

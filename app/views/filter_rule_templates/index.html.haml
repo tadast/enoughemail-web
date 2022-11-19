@@ -1,0 +1,26 @@
+.container.mx-auto
+  %h1.text-4xl.font-medium.my-6 Filter Rule Templates
+
+  %p A way to quickly apply filters of known companies sending unwanted email.
+
+  %table
+    %thead
+      %tr
+        %th Name
+        %th Description
+        %th Email pattern
+        %th
+        %th
+        %th
+
+    %tbody
+      - @filter_rule_templates.each do |filter_rule_template|
+        %tr
+          %td= filter_rule_template.name
+          %td= filter_rule_template.description
+          %td= filter_rule_template.email_pattern
+          %td= link_to 'Show', filter_rule_template
+          %td= link_to 'Edit', edit_filter_rule_template_path(filter_rule_template)
+          %td= link_to 'Destroy', filter_rule_template, method: :delete, data: { confirm: 'Are you sure?' }
+
+  %br

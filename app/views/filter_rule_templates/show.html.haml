@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @filter_rule_template.name
+%p
+  %b Description:
+  = @filter_rule_template.description
+%p
+  %b Email pattern:
+  = @filter_rule_template.email_pattern
+
+= link_to 'Edit', edit_filter_rule_template_path(@filter_rule_template)
+\|
+= link_to 'Back', filter_rule_templates_path
