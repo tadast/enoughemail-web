@@ -4,7 +4,7 @@ class FilterRulesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   setup do
-    @filter_rule = filter_rules(:one)
+    @filter_rule = filter_rules(:domain)
   end
 
   test "should get index" do

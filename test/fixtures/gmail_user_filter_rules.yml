@@ -2,10 +2,10 @@
 
 one:
   gmail_user: one
-  filter_rule: one
-  google_filter_id: MyText
+  filter_rule: domain
+  google_filter_id: dfd21
 
 two:
-  gmail_user: two
-  filter_rule: two
-  google_filter_id: MyText
+  gmail_user: unassigned
+  filter_rule: sender
+  google_filter_id: asdf123d

@@ -1,13 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+domain:
   email_pattern: "*@spam.com"
   user: one
   organization: one
   source: :email
   scope: :for_everyone
 
-two:
+sender:
   email_pattern: "someone@spam.co.uk"
   user: two
   organization: two
