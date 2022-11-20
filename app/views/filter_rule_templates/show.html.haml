@@ -1,15 +1,13 @@
-%p#notice= notice
+.container.mx-auto.px-6
+  %p#notice= notice
 
-%p
-  %b Name:
-  = @filter_rule_template.name
-%p
-  %b Description:
-  = @filter_rule_template.description
-%p
-  %b Email pattern:
-  = @filter_rule_template.email_pattern
+  %h1.text-4xl.my-6= @filter_rule_template.name
 
-= link_to 'Edit', edit_filter_rule_template_path(@filter_rule_template)
-\|
-= link_to 'Back', filter_rule_templates_path
+  .space-y-6
+    %p= @filter_rule_template.description
+
+    %p
+      %b Filtered Emails:
+      %pre.p-4.bg-gray-100.overflow-y-auto.max-h-96= @filter_rule_template.email_pattern.gsub(" OR ", "\n")
+
+    = link_to 'Back', filter_rule_templates_path

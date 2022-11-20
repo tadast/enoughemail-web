@@ -66,6 +66,9 @@ Common [email domains list source](https://gist.github.com/ammarshah/f5c2624d767
 
 [SVG illustrations](https://freesvgillustration.com) [and another one](https://undraw.co/search)
 
+Recruiter lists: https://github.com/drcongo/spammy-recruiters/blob/master/spammers.txt https://recruiters.wtf/  https://www.kandidate.com/blog/wp-content/uploads/2016/02/List-of-Recruiters.txt
+
+
 ## Setup video
 
 After following [setup instructions](https://developers.google.com/workspace/guides/create-credentials#service-account) I also needed to enable:
