@@ -2,6 +2,7 @@ class Organization < ApplicationRecord
   has_many :users, dependent: :nullify
   has_many :gmail_users
   has_many :filter_rules
+  has_many :applied_filter_rule_templates, -> { distinct }, through: :filter_rules, source: :filter_rule_template
 
   encrypts :google_domain_wide_delegation_credentials
 

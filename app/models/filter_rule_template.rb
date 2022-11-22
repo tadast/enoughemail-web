@@ -1,6 +1,39 @@
 class FilterRuleTemplate < ApplicationRecord
+  has_many :filter_rules
+
   validates :name, presence: true
   validates :email_pattern, presence: true
+
+  def sample_rule_for(organization)
+    organization.filter_rules.where(filter_rule_template: self).first
+  end
+
+  def applied?(organization)
+    organization.applied_filter_rule_templates.include?(self)
+  end
+
+  def apply!(by:, organization:)
+    filter_rules = nil
+    self.class.transaction do
+      filter_rules = email_pattern_as_array_for_gmail.map do |pattern|
+        by.filter_rules.create!(
+          organization: organization,
+          email_pattern: pattern,
+          filter_rule_template: self,
+          scope: :for_everyone,
+          source: :template
+        )
+      end
+    end
+    filter_rules.map { |fr| FilterRuleApplicationJob.perform_later(filter_rule: fr) }
+  end
+
+  def unapply!(by:, organization:)
+    filter_rules = organization.filter_rules.where(filter_rule_template: self)
+    filter_rules.map do |filter_rule|
+      FilterRuleRemovalJob.perform_later(filter_rule: filter_rule, user: by)
+    end
+  end
 
   def patterns_count
     email_pattern.to_s.split("OR").size

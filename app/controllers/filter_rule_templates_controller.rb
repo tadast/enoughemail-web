@@ -31,6 +31,32 @@ class FilterRuleTemplatesController < AuthenticatedController
     end
   end
 
+  # POST /filter_rule_templates/1/apply
+  def apply
+    @filter_rule_template = FilterRuleTemplate.find(params.fetch(:filter_rule_template_id))
+
+    if @filter_rule_template.applied?(current_organization)
+      render :show, notice: "This template is already applied to your organization"
+    else
+      @filter_rule_template.apply!(by: current_user, organization: current_organization)
+
+      redirect_to action: :index, notice: "The template is being applied, it may take a few minutes to complete"
+    end
+  end
+
+  # DELETE /filter_rule_templates/1/unapply
+  def unapply
+    @filter_rule_template = FilterRuleTemplate.find(params.fetch(:filter_rule_template_id))
+
+    if @filter_rule_template.applied?(current_organization)
+      @filter_rule_template.unapply!(by: current_user, organization: current_organization)
+
+      render :show, notice: "This template is being removed. It can take several minutes."
+    else
+      redirect_to action: :index, notice: "The template has already been removed."
+    end
+  end
+
   # PATCH/PUT /filter_rule_templates/1
   def update
     if @filter_rule_template.update(filter_rule_template_params)

@@ -6,7 +6,8 @@ class FilterRulesController < AuthenticatedController
     if params[:except]
       flash[:notice] = "Filter rule removal is in-progress"
     end
-    @filter_rules = current_organization.filter_rules.where.not(id: params[:except])
+    @filter_rules = current_organization.filter_rules.without_template.where.not(id: params[:except])
+    @filter_rule_templates = current_organization.applied_filter_rule_templates
   end
 
   # GET /filter_rules/new
