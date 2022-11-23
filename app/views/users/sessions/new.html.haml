@@ -28,7 +28,7 @@
   .container.pt-24.px-6.mx-auto.border-t-2
     .pb-32.text-gray-800.text-center
       %h2.text-3xl.font-bold.mb-20 Why Enough Email?
-      .grid.md:gap-x-12.md:grid-cols-2.lg:grid-cols-4
+      .grid.md:gap-x-12.grid-cols-1.lg:grid-cols-3
         .mb-14.lg:mb-0
           .rounded-lg.shadow-lg.h-full.block.bg-white
             .flex.justify-center
@@ -57,15 +57,7 @@
               %h5.text-lg.font-semibold.mb-4 Keep your setup
               %p
                 Everyone can keep using their favourite email app - Gmail, Outlook, Mail for iPhone, Superhuman - you name it.
-        .mb-14.lg:mb-0
-          .rounded-lg.shadow-lg.h-full.block.bg-white
-            .flex.justify-center
-              .p-4.bg-indigo-600.rounded-full.shadow-lg.inline-block.-mt-8
-                = inline_svg_tag "fa-icons/solid/hand-point-up.svg", class: "w-8 h-8 fill-white"
-            .p-6
-              %h5.text-lg.font-semibold.mb-4 One-time setup
-              %p
-                It takes about 15mins for your organization IT admin to set up Enough Email. Then, selected colleagues can start creating filters for everyone directly from their inbox.
+
 %section
   .px-6.max-w-screen-md.mx-auto
     %h2.text-3xl.font-bold.mt-20.mb-10 How it works
@@ -85,12 +77,18 @@
       %li.mb-10.ml-4
         .absolute.w-3.h-3.bg-gray-200.rounded-full.border.border-white.dark:border-gray-900.dark:bg-gray-700{:class => "mt-1.5 -left-1.5"}
         %time.mb-1.text-sm.font-normal.leading-none.text-gray-400.dark:text-gray-500 Step 3
-        %h3.text-lg.font-semibold.text-gray-900.dark:text-white Filter
+        %h3.text-lg.font-semibold.text-gray-900.dark:text-white Apply filter lists
         %p.text-base.font-normal.text-gray-500.dark:text-gray-400
-          Whenever a trusted colleague receives an unwanted email, they can forward it to one of the predefined email addresses to block the sender or sender's entire domain for your entire organization - going forward these emails will be automatically archived
-      %li.ml-4
+          To get instant value, Enough Email offers some predefined Filter Lists to bulk-block known offenders. You can apply selected Filter Lists with one click to protect your entire organization.
+      %li.mb-10.ml-4
         .absolute.w-3.h-3.bg-gray-200.rounded-full.border.border-white.dark:border-gray-900.dark:bg-gray-700{:class => "mt-1.5 -left-1.5"}
         %time.mb-1.text-sm.font-normal.leading-none.text-gray-400.dark:text-gray-500 Step 4
+        %h3.text-lg.font-semibold.text-gray-900.dark:text-white Custom Filters
+        %p.text-base.font-normal.text-gray-500.dark:text-gray-400
+          Whenever a trusted colleague receives an unwanted email, they can forward it to one of the predefined email addresses that blocks the sender or sender's entire domain - going forward these emails will be automatically archived for everyone.
+      %li.ml-4
+        .absolute.w-3.h-3.bg-gray-200.rounded-full.border.border-white.dark:border-gray-900.dark:bg-gray-700{:class => "mt-1.5 -left-1.5"}
+        %time.mb-1.text-sm.font-normal.leading-none.text-gray-400.dark:text-gray-500 Step 5
         %h3.text-lg.font-semibold.text-gray-900.dark:text-white Review
         %p.text-base.font-normal.text-gray-500.dark:text-gray-400
           You can review who and when created new filters by logging in to Enough Email any time.
