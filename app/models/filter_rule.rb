@@ -9,7 +9,7 @@ class FilterRule < ApplicationRecord
   validates :source, presence: true, inclusion: %w[email ui filter_list]
   validates :email_pattern, presence: true
 
-  scope :without_template, -> { where(filter_list_id: nil) }
+  scope :without_filter_list, -> { where(filter_list_id: nil) }
 
   enum scope: {
     for_everyone: "for_everyone",

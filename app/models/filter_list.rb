@@ -21,7 +21,7 @@ class FilterList < ApplicationRecord
           email_pattern: pattern,
           filter_list: self,
           scope: :for_everyone,
-          source: :template
+          source: :filter_list
         )
       end
     end
@@ -43,6 +43,7 @@ class FilterList < ApplicationRecord
   # the email pattern into syntactically valid chunks within length limits
   def email_pattern_as_array_for_gmail(string_to_split: email_pattern, max_length: 1500, separator: " OR ")
     return @email_pattern_as_array_for_gmail if @email_pattern_as_array_for_gmail
+    return [string_to_split] if string_to_split.size <= max_length
 
     head = string_to_split[0..(max_length - 1)]
 

@@ -17,9 +17,9 @@
       %p.small.italic
         = inline_svg_tag "fa-icons/solid/info.svg", class: "h-5 w-5 p-1 inline-block border rounded-full"
         - if @filter_list.applied?(current_user.organization)
-          This template was applied as
+          This Filter List was applied as
         - else
-          This template will be applied as
+          This Filter List will be applied as
         = pluralize(@filter_list.email_pattern_as_array_for_gmail.size, "separate Gmail filter")
         %span>. This is because Gmail has a character limit per filter and this list is above that limit.
     .flex.space-x-5
