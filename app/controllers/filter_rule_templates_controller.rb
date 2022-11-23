@@ -40,7 +40,7 @@ class FilterRuleTemplatesController < AuthenticatedController
     else
       @filter_rule_template.apply!(by: current_user, organization: current_organization)
 
-      redirect_to action: :index, notice: "The template is being applied, it may take a few minutes to complete"
+      redirect_to filter_rule_templates_path, notice: "The template is being applied, it may take a few minutes to complete"
     end
   end
 
@@ -51,9 +51,9 @@ class FilterRuleTemplatesController < AuthenticatedController
     if @filter_rule_template.applied?(current_organization)
       @filter_rule_template.unapply!(by: current_user, organization: current_organization)
 
-      render :show, notice: "This template is being removed. It can take several minutes."
+      redirect_to filter_rule_templates_path, notice: "This template is being removed. It can take several minutes."
     else
-      redirect_to action: :index, notice: "The template has already been removed."
+      redirect_to filter_rule_templates_path, notice: "The template has already been removed."
     end
   end
 
