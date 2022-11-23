@@ -4,7 +4,7 @@
 
   %h1.text-3xl.m-10 Your organization's filter rules
 
-  - if @filter_rules.any?
+  - if @filter_rules.any? || @filter_lists.any?
     .vc--rules-table.m-10.overflow-auto.border{style: "max-height: 60vh;"}
       %table.min-w-full
         %thead.bg-white.border-b
@@ -16,6 +16,16 @@
             %th.text-sm.font-medium.text-gray-900.px-6.py-4.text-left
 
         %tbody
+          - @filter_lists.each do |frt|
+            - filter_rule = frt.sample_rule_for(current_user.organization)
+            %tr.odd:bg-gray-100.border-b
+              %td.ext-sm.text-gray-900.font-medium.px-6.py-4.whitespace-nowrap= link_to frt.name, frt, class: "underline text-indigo-700"
+              %td.ext-sm.text-gray-900.font-light.px-6.py-4.whitespace-nowrap= filter_rule.scope.sub(/for_/, '').titleize
+              %td.ext-sm.text-gray-900.font-light.px-6.py-4.whitespace-nowrap= filter_rule.user.email
+              %td.ext-sm.text-gray-900.font-light.px-6.py-4.whitespace-nowrap= filter_rule.created_at.strftime("%Y %b %d, %H:%M")
+              %td.ext-sm.text-gray-900.font-light.px-6.py-4.whitespace-nowrap
+                = link_to "Review", frt, class: "underline text-indigo-700"
+
           - @filter_rules.each do |filter_rule|
             %tr.odd:bg-gray-100.border-b
               %td.ext-sm.text-gray-900.font-medium.px-6.py-4.whitespace-nowrap= filter_rule.email_pattern

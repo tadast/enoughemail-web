@@ -1,0 +1,30 @@
+.container.mx-auto.px-6
+  %h1.text-4xl.my-6.flex
+    = @filter_list.name
+    - if @filter_list.applied?(current_user.organization)
+      .text-sm.flex.border.border-green-800.rounded-full.items-center.px-2.ml-2.self-center
+        = inline_svg_tag "fa-icons/solid/check.svg", class: "h-6 w-6 fill-green-800 mr-1"
+        .font-bold Applied
+
+  .space-y-6
+    %p= @filter_list.description
+
+    %p
+      %b Filtered Emails:
+      %pre.p-4.bg-gray-100.overflow-y-auto.max-h-96= @filter_list.email_pattern.gsub(" OR ", "\n")
+
+    - if @filter_list.email_pattern_as_array_for_gmail.size > 1
+      %p.small.italic
+        = inline_svg_tag "fa-icons/solid/info.svg", class: "h-5 w-5 p-1 inline-block border rounded-full"
+        - if @filter_list.applied?(current_user.organization)
+          This Filter List was applied as
+        - else
+          This Filter List will be applied as
+        = pluralize(@filter_list.email_pattern_as_array_for_gmail.size, "separate Gmail filter")
+        %span>. This is because Gmail has a character limit per filter and this list is above that limit.
+    .flex.space-x-5
+      - if @filter_list.applied?(current_user.organization)
+        = button_to 'Remove for Everyone', filter_list_unapply_path(@filter_list), method: :delete, data: { "turbo-confirm" => 'This will remove the list of filters for everyone. Proceed?' }, class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-red-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg transition duration-150 ease-in-out"
+      - else
+        = button_to 'Apply for Everyone', filter_list_apply_path(@filter_list), method: :post, class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out"
+      = link_to 'Back', filter_lists_path, class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 border border-indigo-700 font-medium text-sm leading-snug uppercase rounded shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out"

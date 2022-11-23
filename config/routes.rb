@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :filter_lists, except: [:destroy] do
+    post :apply
+    delete :unapply
+  end
   root "users/sessions#new"
 
   resources :organizations, except: [:index, :destroy] do

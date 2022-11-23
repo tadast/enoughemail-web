@@ -14,4 +14,8 @@ class AuthenticatedController < ApplicationController
       end
     end
   end
+
+  def current_organization
+    current_user.organization
+  end
 end

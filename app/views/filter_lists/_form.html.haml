@@ -1,0 +1,19 @@
+= form_for @filter_list do |f|
+  - if @filter_list.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@filter_list.errors.count, "error")} prohibited this filter_list from being saved:"
+      %ul
+        - @filter_list.errors.full_messages.each do |message|
+          %li= message
+
+  .my-3
+    = f.label :name
+    = f.text_field :name, class: "block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+  .my-3
+    = f.label :description
+    = f.text_area :description, class: "block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+  .my-3
+    = f.label :email_pattern
+    = f.text_area :email_pattern, class: "block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none", rows: 12
+  .my-3
+    = f.submit 'Save', class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out"

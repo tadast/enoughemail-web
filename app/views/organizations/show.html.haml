@@ -19,9 +19,15 @@
         .flex-grow.flex.items-end.py-2.text-4xl.text-indigo-900= @organization.gmail_users.count
 
     %a.flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md.hover:bg-gray-100{ href: filter_rules_path }
-      %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900 Filter rules
+      %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900 Filter Rules
       %p.font-normal.text-gray-700 The number of rules created
       .flex-grow.flex.items-end.py-2.text-4xl.text-indigo-900= @organization.filter_rules.count
+
+    %a.flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md.hover:bg-gray-100{ href: filter_lists_path }
+      %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900 Filter Lists
+      %p.font-normal.text-gray-700 The number of applied predefined filter lists
+      .flex-grow.flex.items-end.py-2.text-4xl.text-indigo-900= @organization.applied_filter_lists.size
+
 
     .flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md.hover:bg-gray-100
       %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900 Google Workplace connection

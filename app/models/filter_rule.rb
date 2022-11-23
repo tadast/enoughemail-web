@@ -1,11 +1,15 @@
 class FilterRule < ApplicationRecord
   belongs_to :user
   belongs_to :organization
+  belongs_to :filter_list, optional: true
   has_many :gmail_user_filter_rules, dependent: :destroy
   has_many :gmail_users, through: :gmail_user_filter_rules
 
   validates :scope, presence: true, inclusion: %w[for_everyone for_individual]
-  validates :source, presence: true, inclusion: %w[email ui]
+  validates :source, presence: true, inclusion: %w[email ui filter_list]
+  validates :email_pattern, presence: true
+
+  scope :without_filter_list, -> { where(filter_list_id: nil) }
 
   enum scope: {
     for_everyone: "for_everyone",
@@ -14,7 +18,8 @@ class FilterRule < ApplicationRecord
 
   enum source: {
     email: "email",
-    ui: "ui"
+    ui: "ui",
+    filter_list: "filter_list"
   }
 
   def apply_to_google!
