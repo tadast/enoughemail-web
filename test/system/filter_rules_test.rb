@@ -7,35 +7,35 @@ class FilterRulesTest < ApplicationSystemTestCase
 
   test "visiting the index" do
     visit filter_rules_url
-    assert_selector "h1", text: "Filter rules"
+    assert_selector "h1", text: "Filters"
   end
 
-  test "should create filter rule" do
+  test "should create filter" do
     visit filter_rules_url
-    click_on "New filter rule"
+    click_on "New filter"
 
     fill_in "Email pattern", with: @filter_rule.email_pattern
-    click_on "Create Filter rule"
+    click_on "Create Filter"
 
-    assert_text "Filter rule was successfully created"
+    assert_text "Filter was successfully created"
     click_on "Back"
   end
 
-  test "should update Filter rule" do
+  test "should update Filter" do
     visit filter_rule_url(@filter_rule)
-    click_on "Edit this filter rule", match: :first
+    click_on "Edit this filter", match: :first
 
     fill_in "Email pattern", with: @filter_rule.email_pattern
-    click_on "Update Filter rule"
+    click_on "Update Filter"
 
-    assert_text "Filter rule was successfully updated"
+    assert_text "Filter was successfully updated"
     click_on "Back"
   end
 
-  test "should destroy Filter rule" do
+  test "should destroy Filter" do
     visit filter_rule_url(@filter_rule)
-    click_on "Destroy this filter rule", match: :first
+    click_on "Destroy this filter", match: :first
 
-    assert_text "Filter rule was successfully destroyed"
+    assert_text "Filter was successfully destroyed"
   end
 end

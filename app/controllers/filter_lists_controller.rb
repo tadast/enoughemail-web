@@ -66,6 +66,10 @@ class FilterListsController < AuthenticatedController
     end
   end
 
+  def html_title
+    super + " - Filter Lists"
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

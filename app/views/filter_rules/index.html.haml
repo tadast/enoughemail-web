@@ -2,7 +2,7 @@
 
   .m-6= render "shared/cheat_sheet"
 
-  %h1.text-3xl.m-10 Your organization's filter rules
+  %h1.text-3xl.m-10 Your organization's filters
 
   - if @filter_rules.any? || @filter_lists.any?
     .vc--rules-table.m-10.overflow-auto.border{style: "max-height: 60vh;"}
@@ -34,5 +34,5 @@
               %td.ext-sm.text-gray-900.font-light.px-6.py-4.whitespace-nowrap= filter_rule.created_at.strftime("%Y %b %d, %H:%M")
               %td.ext-sm.text-gray-900.font-light.px-6.py-4.whitespace-nowrap= button_to 'Remove', filter_rule, class: "underline text-indigo-700", method: :delete, data: { "turbo-confirm" => 'Are you sure?' }
   - else
-    %p.m-6 There are no Filter Rules set up yet.
-    -# = link_to 'New Filter rule', new_filter_rule_path
+    %p.m-6 There are no Filters set up yet.
+    -# = link_to 'New Filter', new_filter_rule_path

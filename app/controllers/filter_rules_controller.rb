@@ -4,7 +4,7 @@ class FilterRulesController < AuthenticatedController
   # GET /filter_rules
   def index
     if params[:except]
-      flash[:notice] = "Filter rule removal is in-progress"
+      flash[:notice] = "Filter removal is in-progress"
     end
     @filter_rules = current_organization.filter_rules.without_filter_list.where.not(id: params[:except])
     @filter_lists = current_organization.applied_filter_lists
@@ -22,7 +22,7 @@ class FilterRulesController < AuthenticatedController
   #   )
 
   #   if @filter_rule.save
-  #     redirect_to @filter_rule, notice: "Filter rule was successfully added."
+  #     redirect_to @filter_rule, notice: "Filter was successfully added."
   #   else
   #     render :new, status: :unprocessable_entity
   #   end
@@ -31,7 +31,7 @@ class FilterRulesController < AuthenticatedController
   # # PATCH/PUT /filter_rules/1
   # def update
   #   if @filter_rule.update(filter_rule_params)
-  #     redirect_to @filter_rule, notice: "Filter rule was successfully changed."
+  #     redirect_to @filter_rule, notice: "Filter was successfully changed."
   #   else
   #     render :edit, status: :unprocessable_entity
   #   end
@@ -40,11 +40,11 @@ class FilterRulesController < AuthenticatedController
   # DELETE /filter_rules/1
   def destroy
     FilterRuleRemovalJob.perform_later(filter_rule: @filter_rule, user: current_user)
-    redirect_to filter_rules_url(except: @filter_rule.id), notice: "Filter rule removal has started successfully."
+    redirect_to filter_rules_url(except: @filter_rule.id), notice: "Filter removal has started successfully."
   end
 
   def html_title
-    super + " - Filter rules"
+    super + " - Filters"
   end
 
   private
