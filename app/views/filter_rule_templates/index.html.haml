@@ -1,25 +1,29 @@
 .container.mx-auto
   .mx-6
-    %h1.text-4xl.font-medium.mt-6 Filter Rule Templates
+    %h1.text-4xl.font-medium.mt-6 Filter Lists
 
     %p.text-sm.text-gray-700 Quickly block wide categories of unwanted email senders for everyone.
 
     .mt-10.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-3
       - @filter_rule_templates.each do |filter_rule_template|
         .flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md.hover:bg-gray-100
-          %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900= filter_rule_template.name
+          %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900
+            = filter_rule_template.name
           %p.font-normal.text-gray-700= filter_rule_template.description
           .flex-grow.flex.items-end.py-2.text-4xl.text-indigo-900
             = filter_rule_template.patterns_count
             senders
 
           .mt-2
-            = link_to 'Next', filter_rule_template, class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out"
+            - if filter_rule_template.applied?(current_user.organization)
+              = link_to 'Review', filter_rule_template, class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
+            - else
+              = link_to 'Next', filter_rule_template, class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out"
 
       .flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md.hover:bg-gray-100.italic
         %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900 Can't see what you want?
-        %p.font-normal.text-gray-700 We're working on more Filter Rule Templates. Let us know what category you'd like us to priotitise next.
+        %p.font-normal.text-gray-700 We're working on more Filter Lists. Let us know what category you'd like us to priotitise next.
         .flex-grow.flex.items-end.py-2.text-4xl.text-indigo-900
 
         .mt-2
-          = mail_to "support@enoughemail.com", 'Let us know', subject: "Filter Rule Template request", class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"
+          = mail_to "support@enoughemail.com", 'Let us know', subject: "Filter List request", class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-green-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-green-700 hover:shadow-lg focus:bg-green-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-800 active:shadow-lg transition duration-150 ease-in-out"

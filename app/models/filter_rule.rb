@@ -6,7 +6,7 @@ class FilterRule < ApplicationRecord
   has_many :gmail_users, through: :gmail_user_filter_rules
 
   validates :scope, presence: true, inclusion: %w[for_everyone for_individual]
-  validates :source, presence: true, inclusion: %w[email ui template]
+  validates :source, presence: true, inclusion: %w[email ui filter_list]
   validates :email_pattern, presence: true
 
   scope :without_template, -> { where(filter_rule_template_id: nil) }
@@ -19,7 +19,7 @@ class FilterRule < ApplicationRecord
   enum source: {
     email: "email",
     ui: "ui",
-    template: "template"
+    filter_list: "filter_list"
   }
 
   def apply_to_google!

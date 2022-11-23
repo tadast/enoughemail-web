@@ -25,7 +25,7 @@ class FilterRuleTemplatesController < AuthenticatedController
     @filter_rule_template = FilterRuleTemplate.new(filter_rule_template_params)
 
     if @filter_rule_template.save
-      redirect_to @filter_rule_template, notice: "Filter rule template was successfully created."
+      redirect_to @filter_rule_template, notice: "Filter List was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -36,11 +36,11 @@ class FilterRuleTemplatesController < AuthenticatedController
     @filter_rule_template = FilterRuleTemplate.find(params.fetch(:filter_rule_template_id))
 
     if @filter_rule_template.applied?(current_organization)
-      render :show, notice: "This template is already applied to your organization"
+      render :show, notice: "This Filter List is already applied to your organization"
     else
       @filter_rule_template.apply!(by: current_user, organization: current_organization)
 
-      redirect_to filter_rule_templates_path, notice: "The template is being applied, it may take a few minutes to complete"
+      redirect_to filter_rule_templates_path, notice: "The Filter List is being applied, it may take a few minutes to complete"
     end
   end
 
@@ -51,16 +51,16 @@ class FilterRuleTemplatesController < AuthenticatedController
     if @filter_rule_template.applied?(current_organization)
       @filter_rule_template.unapply!(by: current_user, organization: current_organization)
 
-      redirect_to filter_rule_templates_path, notice: "This template is being removed. It can take several minutes."
+      redirect_to filter_rule_templates_path, notice: "This Filter List is being removed. It can take several minutes."
     else
-      redirect_to filter_rule_templates_path, notice: "The template has already been removed."
+      redirect_to filter_rule_templates_path, notice: "The Filter List has already been removed."
     end
   end
 
   # PATCH/PUT /filter_rule_templates/1
   def update
     if @filter_rule_template.update(filter_rule_template_params)
-      redirect_to @filter_rule_template, notice: "Filter rule template was successfully updated."
+      redirect_to @filter_rule_template, notice: "Filter List was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
