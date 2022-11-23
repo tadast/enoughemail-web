@@ -4,7 +4,7 @@
 
   %h1.text-3xl.m-10 Your organization's filter rules
 
-  - if @filter_rules.any? || @filter_rule_templates.any?
+  - if @filter_rules.any? || @filter_lists.any?
     .vc--rules-table.m-10.overflow-auto.border{style: "max-height: 60vh;"}
       %table.min-w-full
         %thead.bg-white.border-b
@@ -16,7 +16,7 @@
             %th.text-sm.font-medium.text-gray-900.px-6.py-4.text-left
 
         %tbody
-          - @filter_rule_templates.each do |frt|
+          - @filter_lists.each do |frt|
             - filter_rule = frt.sample_rule_for(current_user.organization)
             %tr.odd:bg-gray-100.border-b
               %td.ext-sm.text-gray-900.font-medium.px-6.py-4.whitespace-nowrap= link_to frt.name, frt, class: "underline text-indigo-700"

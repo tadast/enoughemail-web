@@ -1,9 +1,9 @@
-= form_for @filter_rule_template do |f|
-  - if @filter_rule_template.errors.any?
+= form_for @filter_list do |f|
+  - if @filter_list.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@filter_rule_template.errors.count, "error")} prohibited this filter_rule_template from being saved:"
+      %h2= "#{pluralize(@filter_list.errors.count, "error")} prohibited this filter_list from being saved:"
       %ul
-        - @filter_rule_template.errors.full_messages.each do |message|
+        - @filter_list.errors.full_messages.each do |message|
           %li= message
 
   .my-3

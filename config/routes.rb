@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :filter_rule_templates, except: [:destroy] do
+  resources :filter_lists, except: [:destroy] do
     post :apply
     delete :unapply
   end

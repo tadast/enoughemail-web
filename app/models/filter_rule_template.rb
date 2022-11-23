@@ -1,15 +1,15 @@
-class FilterRuleTemplate < ApplicationRecord
+class FilterList < ApplicationRecord
   has_many :filter_rules
 
   validates :name, presence: true
   validates :email_pattern, presence: true
 
   def sample_rule_for(organization)
-    organization.filter_rules.where(filter_rule_template: self).first
+    organization.filter_rules.where(filter_list: self).first
   end
 
   def applied?(organization)
-    organization.applied_filter_rule_templates.include?(self)
+    organization.applied_filter_lists.include?(self)
   end
 
   def apply!(by:, organization:)
@@ -19,7 +19,7 @@ class FilterRuleTemplate < ApplicationRecord
         by.filter_rules.create!(
           organization: organization,
           email_pattern: pattern,
-          filter_rule_template: self,
+          filter_list: self,
           scope: :for_everyone,
           source: :template
         )
@@ -29,7 +29,7 @@ class FilterRuleTemplate < ApplicationRecord
   end
 
   def unapply!(by:, organization:)
-    filter_rules = organization.filter_rules.where(filter_rule_template: self)
+    filter_rules = organization.filter_rules.where(filter_list: self)
     filter_rules.map do |filter_rule|
       FilterRuleRemovalJob.perform_later(filter_rule: filter_rule, user: by)
     end

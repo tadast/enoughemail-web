@@ -1,6 +1,6 @@
 require "test_helper"
 
-class FilterRuleTemplateTest < ActiveSupport::TestCase
+class FilterListTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

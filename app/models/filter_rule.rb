@@ -1,7 +1,7 @@
 class FilterRule < ApplicationRecord
   belongs_to :user
   belongs_to :organization
-  belongs_to :filter_rule_template, optional: true
+  belongs_to :filter_list, optional: true
   has_many :gmail_user_filter_rules, dependent: :destroy
   has_many :gmail_users, through: :gmail_user_filter_rules
 
@@ -9,7 +9,7 @@ class FilterRule < ApplicationRecord
   validates :source, presence: true, inclusion: %w[email ui filter_list]
   validates :email_pattern, presence: true
 
-  scope :without_template, -> { where(filter_rule_template_id: nil) }
+  scope :without_template, -> { where(filter_list_id: nil) }
 
   enum scope: {
     for_everyone: "for_everyone",

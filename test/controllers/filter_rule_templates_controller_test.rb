@@ -1,4 +1,4 @@
 require "test_helper"
 
-class FilterRuleTemplatesControllerTest < ActionDispatch::IntegrationTest
+class FilterListsControllerTest < ActionDispatch::IntegrationTest
 end
