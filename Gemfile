@@ -54,7 +54,7 @@ gem "google-apis-admin_directory_v1"
 gem "delayed_job_active_record"
 gem "devise"
 gem "omniauth-google-oauth2"
-gem "omniauth-slack"
+gem "omniauth-slack", github: "kmrshntr/omniauth-slack"
 gem "omniauth-rails_csrf_protection"
 gem "inline_svg"
 gem "google-cloud-storage" # For Active Storage

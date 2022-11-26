@@ -13,8 +13,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def slack
-    Rails.logger.warn "=====> #{auth["extra"]["web_hook_info"]}"
-    Rails.logger.warn "=====> #{auth.info.web_hook_info}"
+    unless current_user
+      redirect_to new_users_session_path, notice: "Sign in required"
+    end
+    current_user.organization.update(slack_webhook_url: auth.extra.raw_info.web_hook_info.url)
+    redirect_to current_user.organization, notice: "Slack notifications configured"
   end
 
   private

@@ -59,6 +59,14 @@
 - [ ] like hey.com - shitlist by default, need to approve to receive in future. But on gmail
 - [ ] Easy way to send cease and desist emails?
 
+## Slack webhooks
+
+The [gem](https://github.com/kmrshntr/omniauth-slack/pull/68) is outdated, monkeypatch `token_url: '/api/oauth.v2.access'` to make it work
+
+## run with https locally
+
+openssl req -x509 -sha256 -nodes -newkey rsa:2048 -days 365 -keyout localhost.key -out localhost.crt
+FORCE_SSL=true rails s -b 'ssl://localhost:3000?key=tmp/localhost.key&cert=tmp/localhost.crt'
 
 ## Data
 
