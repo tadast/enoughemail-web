@@ -12,6 +12,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
+  def slack
+    Rails.logger.warn "=====> #{auth["extra"]["web_hook_info"]}"
+    Rails.logger.warn "=====> #{auth.info.web_hook_info}"
+  end
+
   private
 
   def from_google_params
