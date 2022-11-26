@@ -32,7 +32,7 @@ class FilterRule < ApplicationRecord
     end
     update!(applied: true)
 
-    if organization.slack_webhook_url.present? && for_everyone?
+    if organization.slack_webhook_url.present? && for_everyone? && filter_list_id.nil?
       SlackNotificationJob.perform_later(webhook_url: organization.slack_webhook_url, payload: creation_event_slack_payload)
     end
   end
@@ -41,7 +41,7 @@ class FilterRule < ApplicationRecord
 
   def creation_event_slack_payload
     target_audience = for_individual? ? "for themselves" : scope.humanize.downcase
-    message = ":shield: #{user&.email || "Deleted user"} has created a filter to block `#{email_pattern}` #{target_audience}."
+    message = ":hand: #{user&.email || "Deleted user"} has created a filter to block `#{email_pattern}` #{target_audience}."
     {
       message: message,
       attachments: [

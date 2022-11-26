@@ -26,12 +26,42 @@ class FilterList < ApplicationRecord
       end
     end
     filter_rules.map { |fr| FilterRuleApplicationJob.perform_later(filter_rule: fr) }
+
+    if organization.slack_webhook_url.present?
+      payload = {
+        message: ":goal_net: #{by.email} has applied '#{name}' Filter List for everyone.",
+        attachments: [
+          {
+            color: "#36a64f",
+            title: name,
+            text: description,
+            title_link: Rails.application.routes.url_helpers.filter_list_url(id)
+          }
+        ]
+      }
+      SlackNotificationJob.perform_later(webhook_url: organization.slack_webhook_url, payload: payload)
+    end
   end
 
   def unapply!(by:, organization:)
     filter_rules = organization.filter_rules.where(filter_list: self)
     filter_rules.map do |filter_rule|
       FilterRuleRemovalJob.perform_later(filter_rule: filter_rule, user: by)
+    end
+
+    if organization.slack_webhook_url.present?
+      payload = {
+        message: ":broom: #{by.email} has removed '#{name}' Filter List for everyone.",
+        attachments: [
+          {
+            color: "#36a64f",
+            title: name,
+            text: description,
+            title_link: Rails.application.routes.url_helpers.filter_list_url(id)
+          }
+        ]
+      }
+      SlackNotificationJob.perform_later(webhook_url: organization.slack_webhook_url, payload: payload)
     end
   end
 
