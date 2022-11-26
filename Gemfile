@@ -59,6 +59,7 @@ gem "omniauth-rails_csrf_protection"
 gem "inline_svg"
 gem "google-cloud-storage" # For Active Storage
 gem "honeybadger", "~> 4.0"
+gem "slack-incoming-webhooks"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem

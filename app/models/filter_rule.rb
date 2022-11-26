@@ -31,9 +31,28 @@ class FilterRule < ApplicationRecord
       apply_to_gmail_and_persist(service: service, g_user: g_user)
     end
     update!(applied: true)
+
+    if organization.slack_webhook_url.present? && for_everyone?
+      SlackNotificationJob.perform_later(webhook_url: organization.slack_webhook_url, payload: creation_event_slack_payload)
+    end
   end
 
   private
+
+  def creation_event_slack_payload
+    target_audience = for_individual? ? "for themselves" : scope.humanize.downcase
+    message = ":shield: #{user&.email || "Deleted user"} has created a filter to block `#{email_pattern}` #{target_audience}."
+    {
+      message: message,
+      attachments: [
+        {
+          color: "#36a64f",
+          title: "Review all filters",
+          title_link: Rails.application.routes.url_helpers.filter_rules_url
+        }
+      ]
+    }
+  end
 
   def apply_to_gmail_and_persist(service:, g_user:)
     gmail_user = GmailUser.from_google(g_user).with_associations_for_new_record(organization)
