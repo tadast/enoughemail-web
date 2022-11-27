@@ -8,6 +8,15 @@ class FilterRuleRemovalJob < ApplicationJob
       service.delete_filter(gufr.google_filter_id, as: gufr.gmail_user.email)
     end
 
+    if filter_rule.for_everyone? && filter_rule.organization.slack_webhook_url.present?
+      SlackNotificationJob.perform_later(
+        webhook_url: filter_rule.organization.slack_webhook_url,
+        payload: {
+          message: ":broom: #{user.email} has removed `#{filter_rule.email_pattern}` filter for everyone."
+        }
+      )
+    end
+
     filter_rule.destroy
   end
 end
