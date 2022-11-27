@@ -29,12 +29,12 @@
       .flex-grow.flex.items-end.py-2.text-4xl.text-indigo-900= @organization.applied_filter_lists.size
 
 
-    .flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md.hover:bg-gray-100
+    .flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md
       %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900 Google Workplace connection
 
       - if @organization.google_domain_wide_delegation_credentials.present?
         .font-normal.text-gray-700.flex
-          = inline_svg_tag "fa-icons/solid/circle-check.svg", class: "h-6 w-6 mr-2 fill-indigo-700"
+          = inline_svg_tag "fa-icons/solid/circle-check.svg", class: "h-6 w-6 mr-2 fill-green-700"
           Credentials uploaded
         .flex-grow.flex.items-end.mt-4
           = turbo_frame_tag "google-workspace-test" do
@@ -45,5 +45,17 @@
           Credentials not uploaded
         .flex-grow.flex.items-end.mt-4
           = link_to 'Upload', edit_organization_path(@organization), class: "w-full text-center inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-gray-200 text-gray-700 font-medium text-sm leading-snug rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+    .flex.flex-col.p-6.max-w-sm.bg-white.rounded-lg.border.border-gray-200.shadow-md
+      %h5.mb-2.text-2xl.font-bold.tracking-tight.text-gray-900 Event notifications
+      %p.font-normal.text-gray-700 Get real-time notifications on Slack when moderators apply new filters for your organization.
+      - if @organization.slack_webhook_url.present?
+        .font-normal.text-gray-700.flex.my-4
+          = inline_svg_tag "fa-icons/solid/circle-check.svg", class: "h-6 w-6 mr-2 fill-green-700"
+          Connected
+          = link_to "reconnect", "https://slack.com/oauth/v2/authorize?client_id=20420187843.4420930098390&scope=incoming-webhook&user_scope=", class: "underline text-indigo-700 ml-4"
+      - else
+        .flex-grow.flex.items-end.py-2.text-4xl.text-indigo-900
+          %a{:href => "https://slack.com/oauth/v2/authorize?client_id=20420187843.4420930098390&scope=incoming-webhook&user_scope="}
+            %img{:alt => "Add to Slack", :height => "40", :src => "https://platform.slack-edge.com/img/add_to_slack.png", :srcset => "https://platform.slack-edge.com/img/add_to_slack.png 1x, https://platform.slack-edge.com/img/add_to_slack@2x.png 2x", :width => "139"}/
 
   .my-8= link_to 'Edit organization settings', edit_organization_path(@organization), class: "inline-block px-7 py-3 mb-2 md:mb-0 mr-0 md:mr-2 bg-indigo-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out"
