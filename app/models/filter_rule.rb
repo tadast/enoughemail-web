@@ -26,7 +26,7 @@ class FilterRule < ApplicationRecord
     if for_everyone?
       apply_to_everyone_on_gmail
     else
-      service = user.service
+      service = user.google_service
       g_user = service.get_user(user_email: user.email)
       apply_to_gmail_and_persist(service: service, g_user: g_user)
     end
