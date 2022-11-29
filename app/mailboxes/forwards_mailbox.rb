@@ -24,7 +24,8 @@ class ForwardsMailbox < ApplicationMailbox
   def email_address_to_block
     # TODO would this work for non-english UI?
     # IDEA: when email address to block can not be extracted reliably, respond with an email that has links with a list of all blockable emails
-    mail.body.raw_source[/From: .*<(.*?)>/, 1]
+    # mail.body.raw_source[/From: .*<(.*?)>/, 1]
+    mail.body.decoded.lines.map(&:strip).join[/From: .*?<(.+?@.+?)>/, 1]
   end
 
   def email_address_domain_to_block
