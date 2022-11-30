@@ -11,9 +11,18 @@ class User < ApplicationRecord
   def self.from_google(google_params)
     User.find_or_create_by!(provider: "google", uid: google_params.fetch(:uid), email: google_params.fetch(:email).downcase).tap do |user|
       unless user.organization
+        organization = Organization.for_user_email(user.email)
         user.update!(
-          organization: Organization.for_user_email(user.email)
+          organization: organization
         )
+        if organization&.slack_webhook_url.present?
+          SlackNotificationJob.perform_later(
+            webhook_url: organization.slack_webhook_url,
+            payload: {
+              message: ":wave: #{user.email} has joined the organization."
+            }
+          )
+        end
       end
     end
   end
