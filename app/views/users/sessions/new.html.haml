@@ -58,40 +58,14 @@
               %p
                 Everyone can keep using their favourite email app - Gmail, Outlook, Mail for iPhone, Superhuman - you name it.
 
+%section.py-20
+  = render "case_studies"
+
+%section.py-20.bg-gray-100
+  = render "pricing"
+
 %section
-  .px-6.max-w-screen-md.mx-auto
-    %h2.text-3xl.font-bold.mt-20.mb-10 How it works
-    %ol.relative.border-l.border-gray-200.dark:border-gray-700
-      %li.mb-10.ml-4
-        .absolute.w-3.h-3.bg-gray-200.rounded-full.border.border-white.dark:bg-gray-700{:class => "mt-1.5 -left-1.5"}
-        %time.mb-1.text-sm.font-normal.leading-none.text-gray-400.dark:text-gray-500 Step 1
-        %h3.text-lg.font-semibold.text-gray-900.dark:text-white Admin setup
-        %p.mb-4.text-base.font-normal.text-gray-500.dark:text-gray-400
-          Someone from your organization who has admin rights on your Google Workplace will need to sign in to Enough Email and follow instructions to set things up. This will take around 15mins.
-      %li.mb-10.ml-4
-        .absolute.w-3.h-3.bg-gray-200.rounded-full.border.border-white.dark:bg-gray-700{:class => "mt-1.5 -left-1.5"}
-        %time.mb-1.text-sm.font-normal.leading-none.text-gray-400.dark:text-gray-500 Step 2
-        %h3.text-lg.font-semibold.text-gray-900.dark:text-white Role setup
-        %p.text-base.font-normal.text-gray-500.dark:text-gray-400
-          Select trusted colleagues who will have permissions to create organization-wide filters. It could be just one person, or everyone at your organization - it's up to you. They will receive an onboarding instruction email.
-      %li.mb-10.ml-4
-        .absolute.w-3.h-3.bg-gray-200.rounded-full.border.border-white.dark:bg-gray-700{:class => "mt-1.5 -left-1.5"}
-        %time.mb-1.text-sm.font-normal.leading-none.text-gray-400.dark:text-gray-500 Step 3
-        %h3.text-lg.font-semibold.text-gray-900.dark:text-white Apply filter lists
-        %p.text-base.font-normal.text-gray-500.dark:text-gray-400
-          To get instant value, Enough Email offers some predefined Filter Lists to bulk-block known offenders. You can apply selected Filter Lists with one click to protect your entire organization.
-      %li.mb-10.ml-4
-        .absolute.w-3.h-3.bg-gray-200.rounded-full.border.border-white.dark:bg-gray-700{:class => "mt-1.5 -left-1.5"}
-        %time.mb-1.text-sm.font-normal.leading-none.text-gray-400.dark:text-gray-500 Step 4
-        %h3.text-lg.font-semibold.text-gray-900.dark:text-white Custom Filters
-        %p.text-base.font-normal.text-gray-500.dark:text-gray-400
-          Whenever a trusted colleague receives an unwanted email, they can forward it to one of the predefined email addresses that blocks the sender or sender's entire domain - going forward these emails will be automatically archived for everyone.
-      %li.ml-4
-        .absolute.w-3.h-3.bg-gray-200.rounded-full.border.border-white.dark:bg-gray-700{:class => "mt-1.5 -left-1.5"}
-        %time.mb-1.text-sm.font-normal.leading-none.text-gray-400.dark:text-gray-500 Step 5
-        %h3.text-lg.font-semibold.text-gray-900.dark:text-white Review
-        %p.text-base.font-normal.text-gray-500.dark:text-gray-400
-          You can review who and when created new filters by logging in to Enough Email any time.
+  = render "how_it_works"
 
 %section.my-20
   = inline_svg_tag "illustrations/leader.svg", class: "w-48 fill-gray-800 mx-auto my-8"
@@ -103,9 +77,3 @@
         %svg.mr-2.-ml-1.w-4.h-4{"aria-hidden" => "true", "data-icon" => "google", "data-prefix" => "fab", :focusable => "false", :role => "img", :viewbox => "0 0 488 512", :xmlns => "http://www.w3.org/2000/svg"}
           %path{:d => "M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z", :fill => "currentColor"}
         Sign in with Google
-
-%section.py-20
-  = render "case_studies"
-
-%section.py-20.bg-gray-100
-  = render "pricing"
