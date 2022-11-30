@@ -1,4 +1,4 @@
-class ReportUsersWithoutFilters
+class OneOffScripts::ReportUsersWithoutFilters
   def run
     GmailUser.includes(organization: :filter_rules).all.map do |gmail_user|
       missing_rules = gmail_user.organization.filter_rules.for_everyone.where.not(id: gmail_user.filter_rules.pluck(:id))
