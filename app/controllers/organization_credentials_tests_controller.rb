@@ -15,6 +15,12 @@ class OrganizationCredentialsTestsController < AuthenticatedController
       error_messages[:gmail_basic_settings_access] = check_for_errors do
         service.list_filters(user_email: users.last.primary_email)
       end
+
+      if current_user.organization.google_auth_scope_set == "with_labels"
+        error_messages[:gmail_labels] = check_for_errors do
+          service.list_labels(user_email: users.last.primary_email)
+        end
+      end
     end
 
     if error_messages.values.flatten.empty?
@@ -51,7 +57,7 @@ class OrganizationCredentialsTestsController < AuthenticatedController
         error_messages << "Google credentials unauthorized. Is 'Admin email' setting on the organization correct?"
       when "Requested client not authorized."
         error_messages << "Google credentials unauthorized. Are scopes in Google Workspace Admin panel for domain-wide delegation set up correctly?"
-        error_messages << "Scopes required: '#{Google::Service::SCOPES.join(",")}'"
+        error_messages << "Scopes required: '#{Google::Service::SCOPES.fetch("with_labels").join(",")}'"
       else
         error_messages << "Google credentials unauthorized. Have you set up domain-wide delegation? Have credentials expired or were removed? Google error description: #{response_body["error_description"].strip}"
       end
