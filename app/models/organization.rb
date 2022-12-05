@@ -10,6 +10,8 @@ class Organization < ApplicationRecord
   validates :google_domain_wide_delegation_credentials, presence: true
   validate :non_common_domain
 
+  enum google_auth_scope_set: Google::Service::SCOPES.keys.map { |k| [k, k] }.to_h.freeze
+
   def self.for_user_email(email_address)
     domain = email_address.split("@").last.downcase
     find_by(domain: domain)
@@ -18,7 +20,8 @@ class Organization < ApplicationRecord
   def google_service
     Google::Service.new(
       credentials_json: google_domain_wide_delegation_credentials,
-      org_admin_email: admin_email
+      org_admin_email: admin_email,
+      auth_scope_set: google_auth_scope_set
     )
   end
 

@@ -30,17 +30,17 @@
 
         %p It requires a very minimal set of permissions, ensuring that Enough Email does not have access to any of the email contents inside your organization.
 
-        %p.font-bold
-          Follow these instructions to
-          = link_to "set up a Service Account", "https://developers.google.com/workspace/guides/create-credentials#service-account", taget: :blank, class: "underline text-indigo-700"
+        .font-bold.text-lg.bg-indigo-200.border-indigo-900.p-4.text-gray-900
+          = inline_svg_tag "fa-icons/solid/arrow-right.svg", class: "h-6 w-6 fill-green-800 mr-1 inline-block"
+          = link_to "Follow these instructions to set up a Service Account", "https://developers.google.com/workspace/guides/create-credentials#service-account", taget: :blank, class: "underline text-indigo-700"
           , please make sure to
           %b enable domain-wide delegation.
 
-        %h3.text-lg Mandatory permissions
+        %h3.text-lg Permissions
 
         %p
           The following permissions are required. You can read more about scopes in
-          = link_to "Google's documentation.", "https://developers.google.com/gmail/api/auth/scopes", target: :_blank
+          = link_to "Google's documentation.", "https://developers.google.com/gmail/api/auth/scopes", target: :_blank, class: "underline"
         .overflow-auto
           %table.min-w-full.max-w-full.border
             %tr.bg-white.border-b
@@ -54,23 +54,10 @@
               %td.text-gray-900.px-6.py-4.text-left
                 %pre.py-1.overflow-x-scroll.font-monospace.border.rounded.bg-gray-100.px-2.block.py-1 https://www.googleapis.com/auth/gmail.settings.basic
               %td.text-gray-900.px-6.py-4.text-left Allows Enough Email to add new email Filters for users in your organization
-
-        %h3.text-lg Optional permissions
-
-        %p Add the following scopes if you are OK with enoughemail.com seeing your email subjects and headers (email body will remain invisible). Optional permissions will allow enoughemail.com to tag block emails with a Gmail label and calculate stats of how many emails are being filtered. This feature will be implemented in future.
-        .overflow-auto
-          %table.min-w-full.max-w-full.border
-            %tr.bg-white.border-b
-              %th.font-medium.text-gray-900.px-6.py-4.text-left Permission scope
-              %th.font-medium.text-gray-900.px-6.py-4.text-left Explanation
             %tr
               %td.text-gray-900.px-6.py-4.text-left
                 %pre.py-1.overflow-x-scroll.font-monospace.border.rounded.bg-gray-100.px-2.block.py-1 https://www.googleapis.com/auth/gmail.labels
               %td.text-gray-900.px-6.py-4.text-left Allows Enough Email to create labels so that filtered emails can be tagged.
-            %tr
-              %td.text-gray-900.px-6.py-4.text-left
-                %pre.py-1.overflow-x-scroll.font-monospace.border.rounded.bg-gray-100.px-2.block.py-1 https://www.googleapis.com/auth/gmail.metadata
-              %td.text-gray-900.px-6.py-4.text-left Allows Enough Email to look at the email headers and labels, so that it can generate stats of filtered emails.
 
         %p Once set up, paste the credentials JSON contents into the field above. Credentials look like this:
 

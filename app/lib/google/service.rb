@@ -1,16 +1,32 @@
 class Google::Service
-  SCOPES = [Google::Apis::AdminDirectoryV1::AUTH_ADMIN_DIRECTORY_USER_READONLY, Google::Apis::GmailV1::AUTH_GMAIL_SETTINGS_BASIC]
-  FILTER_LABELS_TO_REMOVE = ["UNREAD", "IMPORTANT", "INBOX"].sort.freeze
+  SCOPES = {
+    minimal: [
+      Google::Apis::AdminDirectoryV1::AUTH_ADMIN_DIRECTORY_USER_READONLY,
+      Google::Apis::GmailV1::AUTH_GMAIL_SETTINGS_BASIC
+    ],
+    with_labels: [
+      Google::Apis::AdminDirectoryV1::AUTH_ADMIN_DIRECTORY_USER_READONLY,
+      Google::Apis::GmailV1::AUTH_GMAIL_SETTINGS_BASIC,
+      Google::Apis::GmailV1::AUTH_GMAIL_LABELS
+      # Google::Apis::GmailV1::AUTH_GMAIL_METADATA
+    ]
+  }.with_indifferent_access.freeze
 
-  def initialize(credentials_json:, org_admin_email:)
+  FILTER_LABELS_TO_REMOVE = ["UNREAD", "IMPORTANT", "INBOX"].sort.freeze
+  LABEL_ENOUGH_EMAIL = "enoughemail.com".freeze
+
+  attr_reader :auth_scope_set
+
+  def initialize(credentials_json:, org_admin_email:, auth_scope_set: :with_labels)
     @credentials_json = credentials_json
     @org_admin_email = org_admin_email
+    @auth_scope_set = auth_scope_set
   end
 
   def service_authorization(as: @org_admin_email)
     auth = Google::Auth::ServiceAccountCredentials.make_creds(
       json_key_io: StringIO.new(@credentials_json),
-      scope: SCOPES
+      scope: SCOPES[auth_scope_set]
     ).dup
     auth.sub = as
     auth
@@ -56,14 +72,6 @@ class Google::Service
     end
   end
 
-  # def delete_filter_for_everyone(email_pattern:)
-  #   users.each do |user|
-  #     email = user.primary_email
-
-  #     delete_filter_for(user_email: email, email_pattern: email_pattern)
-  #   end
-  # end
-
   def delete_filter_for(user_email:, email_pattern:)
     relevant_filter = find_filter_for(user_email: user_email, email_pattern: email_pattern)
 
@@ -97,11 +105,20 @@ class Google::Service
   def create_filter_for(user_email:, email_pattern:)
     gmail = gmail_service(as: user_email)
 
+    add_label_ids = []
+    if able_to_access_labels?
+      label = find_or_create_label(label_name: LABEL_ENOUGH_EMAIL, user_email: user_email)
+      add_label_ids << label.id
+    end
+
     begin
       gmail.create_user_setting_filter(
         "me",
         Google::Apis::GmailV1::Filter.new(
-          action: Google::Apis::GmailV1::FilterAction.new(remove_label_ids: FILTER_LABELS_TO_REMOVE),
+          action: Google::Apis::GmailV1::FilterAction.new(
+            remove_label_ids: FILTER_LABELS_TO_REMOVE,
+            add_label_ids: add_label_ids
+          ),
           criteria: Google::Apis::GmailV1::FilterCriteria.new(from: email_pattern)
         ),
         fields: nil,
@@ -117,7 +134,40 @@ class Google::Service
     end
   end
 
+  def list_labels(user_email:)
+    gmail = gmail_service(as: user_email)
+
+    gmail.list_user_labels("me").labels
+  end
+
+  def find_or_create_label(label_name:, user_email:)
+    the_label = find_label_by_name(label_name: label_name, user_email: user_email)
+    return the_label if the_label
+
+    gmail_service(as: user_email).create_user_label(
+      "me",
+      Google::Apis::GmailV1::Label.new(name: label_name)
+    )
+  end
+
+  def get_label_with_details_by_name(label_name:, user_email:)
+    the_label = find_label_by_name(label_name: label_name, user_email: user_email)
+
+    gmail_service(as: user_email).get_user_label(
+      "me",
+      the_label.id
+    )
+  end
+
   private
+
+  def find_label_by_name(label_name:, user_email:)
+    list_labels(user_email: user_email).find { |label| label.name == label_name }
+  end
+
+  def able_to_access_labels?
+    auth_scope_set.to_sym == :with_labels
+  end
 
   def gmail_service(as:)
     @gmail_service ||= {}
