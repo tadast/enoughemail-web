@@ -5,7 +5,16 @@ class OneOffScripts::UsersWithoutFilters
       next unless missing_rules.present?
 
       service = gmail_user.organization.google_service
-      g_user = service.get_user(user_email: gmail_user.email)
+      g_user = nil
+
+      begin
+        g_user = service.get_user(user_email: gmail_user.email)
+      rescue Google::Apis::ClientError => e
+        raise unless e.status_code == 404
+
+        gmail_user.destroy
+      end
+
       missing_rules.map do |filter_rule|
         filter_rule.apply_to_gmail_and_persist(service: service, g_user: g_user)
       end
