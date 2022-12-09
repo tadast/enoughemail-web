@@ -37,23 +37,6 @@ class FilterRule < ApplicationRecord
     end
   end
 
-  private
-
-  def creation_event_slack_payload
-    target_audience = for_individual? ? "for themselves" : scope.humanize.downcase
-    message = ":hand: #{user&.email || "Deleted user"} has created a filter to block `#{email_pattern}` #{target_audience}."
-    {
-      message: message,
-      attachments: [
-        {
-          color: "#36a64f",
-          title: "Review all filters",
-          title_link: Rails.application.routes.url_helpers.filter_rules_url
-        }
-      ]
-    }
-  end
-
   def apply_to_gmail_and_persist(service:, g_user:)
     gmail_user = GmailUser.from_google(g_user).with_associations_for_new_record(organization)
 
@@ -70,6 +53,23 @@ class FilterRule < ApplicationRecord
       },
       unique_by: [:gmail_user_id, :filter_rule_id, :google_filter_id]
     )
+  end
+
+  private
+
+  def creation_event_slack_payload
+    target_audience = for_individual? ? "for themselves" : scope.humanize.downcase
+    message = ":hand: #{user&.email || "Deleted user"} has created a filter to block `#{email_pattern}` #{target_audience}."
+    {
+      message: message,
+      attachments: [
+        {
+          color: "#36a64f",
+          title: "Review all filters",
+          title_link: Rails.application.routes.url_helpers.filter_rules_url
+        }
+      ]
+    }
   end
 
   def apply_to_everyone_on_gmail
