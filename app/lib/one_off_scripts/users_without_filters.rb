@@ -15,6 +15,8 @@ class OneOffScripts::UsersWithoutFilters
         gmail_user.destroy
       end
 
+      next unless g_user
+
       missing_rules.map do |filter_rule|
         filter_rule.apply_to_gmail_and_persist(service: service, g_user: g_user)
       end
