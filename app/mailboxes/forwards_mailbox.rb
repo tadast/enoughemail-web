@@ -36,7 +36,7 @@ class ForwardsMailbox < ApplicationMailbox
   end
 
   def check_if_client
-    if forwarder.nil?
+    if forwarder.nil? || forwarder.organization.nil?
       inbound_email.bounced!
       # TODO: bounce_with Forwards::BounceMailer.not_a_client(inbound_email, forwarder: forwarder)
     end
@@ -48,7 +48,7 @@ class ForwardsMailbox < ApplicationMailbox
       # TODO: bounce_with Forwards::BounceMailer.common_email_domain(inbound_email, forwarder: forwarder)
     end
 
-    if email_address_domain_to_block == forwarder.organization.domain
+    if email_address_domain_to_block == forwarder.organization&.domain
       inbound_email.bounced!
       # TODO: bounce_with Forwards::BounceMailer.self_own(inbound_email, forwarder: forwarder)
     end
