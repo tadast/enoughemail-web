@@ -3,6 +3,7 @@ class GmailUser < ApplicationRecord
   belongs_to :user, optional: true
   has_many :gmail_user_filter_rules, dependent: :destroy
   has_many :filter_rules, through: :gmail_user_filter_rules
+  has_many :email_addresses, dependent: :destroy
 
   encrypts :email, deterministic: true, downcase: true
   encrypts :full_name

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_110552) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_06_142228) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -64,6 +64,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_110552) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
+  end
+
+  create_table "email_addresses", force: :cascade do |t|
+    t.bigint "gmail_user_id", null: false
+    t.text "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gmail_user_id"], name: "index_email_addresses_on_gmail_user_id"
   end
 
   create_table "filter_lists", force: :cascade do |t|
@@ -140,6 +148,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_110552) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "email_addresses", "gmail_users"
   add_foreign_key "filter_rules", "filter_lists"
   add_foreign_key "filter_rules", "organizations"
   add_foreign_key "filter_rules", "users"
