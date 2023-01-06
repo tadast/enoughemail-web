@@ -20,7 +20,22 @@ class GmailUser < ApplicationRecord
       google_created_at: g_user.creation_time
     }
 
+    gmail_user.persist_aliases(g_user)
+
     gmail_user
+  end
+
+  def persist_aliases(g_user)
+    raise "primary email does not match for #{id}!" unless email == g_user.primary_email
+
+    aliases = [g_user.primary_email] + g_user.aliases.to_a + g_user.non_editable_aliases.to_a
+    suitable_aliases = aliases.reject { |email_address| email_address.end_with?(".test-google-a.com") }
+
+    email_addresses.replace(
+      suitable_aliases.map do |email|
+        EmailAddress.new(email: email)
+      end
+    )
   end
 
   def with_associations_for_new_record(organization)
