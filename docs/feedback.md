@@ -76,3 +76,13 @@ TFC:
 - is happy with superhuman, but sees value in protecting others
 - would be cool to have different roles e.g. everyone can suggest a block, but it needs to be reviewed by admins. Admin blocks go straight in
 
+======
+
+
+Ria & CP
+
+- ability to exclude gmail users to reduce costs would be nice (and remove them from affected users)
+- Microsoft opens up a bigger market
+- Ria is nervous to block domains/people for CP - perhaps emphasise that the emails do not dissapear
+- weekly/monthly digests of rules created and emails blocked would make it feel better
+- new feature updates - sounded a bit reluctant, ok as long as it goes to DM/email and can unsubscribe from

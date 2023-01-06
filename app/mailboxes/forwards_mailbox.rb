@@ -64,7 +64,11 @@ class ForwardsMailbox < ApplicationMailbox
 
   def forwarder
     # TODO: check for spoofing?
-    @forwarder ||= User.find_by(email: mail.from.first.downcase)
+    @forwarder ||= begin
+      email = mail.from.first.downcase
+      user = User.find_by(email: email)
+      user || EmailAddress.find_by(email: email)&.user
+    end
   end
 
   def mail_to_address

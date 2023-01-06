@@ -5,9 +5,7 @@ class GmailUserImportJob < ApplicationJob
     g_users = service.users
 
     g_users.each do |g_user|
-      gmail_user = GmailUser.from_google(g_user)
-      gmail_user.organization = organization
-      gmail_user.user = organization.users.find_by(email: gmail_user.email)
+      gmail_user = GmailUser.from_google(g_user).with_associations_for_new_record
 
       gmail_user.save!
     end
