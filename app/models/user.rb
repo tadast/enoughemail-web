@@ -9,7 +9,16 @@ class User < ApplicationRecord
   has_many :organization_filter_rules, through: :organization, source: :filter_rules
 
   def self.from_google(google_params)
-    User.find_or_create_by!(provider: "google", uid: google_params.fetch(:uid), email: google_params.fetch(:email).downcase).tap do |user|
+    User.find_or_create_by!(provider: "google", email: google_params.fetch(:email).downcase).tap do |user|
+      if user.uid && user.uid != google_params.fetch(:uid)
+        raise "Matching email but different uid for user #{user.id}"
+      end
+
+      if user.uid.nil?
+        Rails.logger.info "Setting uid for a user who did not have it previously #{user.id}"
+        user.update!(uid: google_params.fetch(:uid))
+      end
+
       unless user.organization
         organization = Organization.for_user_email(user.email)
         user.update!(
