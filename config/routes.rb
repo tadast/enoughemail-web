@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   resources :organization_credentials_tests, only: [:show, :create]
   resource :common_domain_organization, only: [:show]
   resources :filter_rules, only: [:index, :destroy]
-  resources :users, only: [:index]
-  resources :gmail_users, only: [:index]
+  resources :users, only: [:index] do
+    post :promotions, on: :collection
+  end
+
   namespace :users do
     resource :session, only: [:new, :destroy]
   end
